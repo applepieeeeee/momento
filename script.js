@@ -1,0 +1,6 @@
+
+let capsules = [];
+
+function createCapsule(){
+    
+}

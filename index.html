@@ -13,8 +13,10 @@
             :root{
                 --font1: "Gaegu", cursive;
 
-                --bg-color: #fff7f0;
+                --bg-color: #e4f3fc;
                 --text-color: #253c5f;
+
+                --panel-bg-color: #fff3e0;
             }
             
             body{
@@ -30,6 +32,39 @@
                 flex-direction: column;
             }
 
+            .app-layout{
+                display: flex;
+                flex-grow: 1;
+                flex-direction: column;
+
+                gap: 15px;
+                padding: 20px;
+            }
+
+            .left-panel{
+                display: flex;
+                flex-direction: column;
+
+                gap: 15px;
+                padding: 15px;
+                background: var(--panel-bg-color);
+
+                border-radius: 15px;
+            }
+
+            .app-title{
+                font-size: 40px;
+                font-weight: 800;
+                text-align: cetner;
+                margin-bottom: 20px;
+            }
+
+            .app-subtitle{
+                display: block;
+                font-size: 20px;
+                font-weight: 300;
+                margin-top: 10px;
+            }
 
 
         </style>
@@ -38,7 +73,10 @@
     <body>
         <div class = "app-layout">
             <div class = "left-panel">
-
+                <h1 class = "app-title">
+                    momento
+                    <span class = "app-subtitle"> a digital time capsule </span>
+                </h1>
             </div>
 
             <div class = "right-panel">
