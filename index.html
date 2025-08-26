@@ -10,6 +10,7 @@
         <link href = "https://fonts.googleapis.com/css2?family=Gaegu&display=swap" rel = "stylesheet">
 
         <style>
+
             /* vars */
             :root{
                 --font1: "Gaegu", cursive;
@@ -31,6 +32,7 @@
                 display: flex;
                 flex-direction: column;
             }
+
             .app-layout{
                 display: flex;
                 flex-grow: 1;
@@ -40,7 +42,6 @@
                 padding: 20px;
             }
 
-            /* custom scrolllllllllllll */
             ::-webkit-scrollbar{
                 width: 8px;
             }
@@ -59,9 +60,11 @@
             .left-panel{
                 display: flex;
                 flex-direction: column;
+                flex-basis: 33.333333333%;
+                flex-shrink: 0;
 
                 gap: 15px;
-                padding: 15px;
+                padding: 20px;
                 background: var(--panel-bg-color);
 
                 border-radius: 15px;
@@ -70,7 +73,7 @@
             .app-title{
                 font-size: 40px;
                 font-weight: 800;
-                text-align: cetner;
+                text-align: center;
                 margin-bottom: 20px;
             }
 
@@ -79,6 +82,7 @@
                 font-size: 20px;
                 font-weight: 300;
                 margin-top: 10px;
+                opacity: 0.8;
             }
 
             /* nav */
@@ -221,7 +225,7 @@
             }
 
             .search-input:focus{
-                outline-none;
+                outline: none;
                 border-color: #729fcc;
             }
 
@@ -326,7 +330,7 @@
     
             /* all the capsule stufff */
             .section-items-list{
-                display; flex;
+                display: flex;
                 flex-direction: column;
                 gap: 12px;
                 margin-bottom: 16px;
@@ -335,10 +339,37 @@
             .item-card{
                 display: flex;
                 align-items: center;
-                background-color: #fcfcfc;
+                background-color: #ad5e5e;
                 padding: 12px;
                 border-radius: 8px;
                 border: 1px solid #eef3f8;
+            }
+
+            /* diff capsule items */
+
+            .note-card{
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .note-card h4{
+                font-weight: 500;
+                color: #292524;
+                font-size: 18px;
+            }
+
+            .note-card p{
+                color: #57534e;
+                font-size: 14px;
+                margin-top: 4px;
+            }
+
+            .note-action{
+                display: flex;
+                justify-content: flex-end;
+                gap: 8px;
+                margin-top: 12px;
+                width: 100%;
             }
 
             /* edit/delete  */
