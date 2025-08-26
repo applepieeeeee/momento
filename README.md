@@ -10,4 +10,4 @@ inside the capsule you will have:
 - files/links
 - memories: photos/videos
 - music
-search by keyword
+- search by keyword
