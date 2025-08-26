@@ -1,3 +1,4 @@
+/* hi there */
 
 /* vars */
 const LOCAL_STORAGE_KEY = 'momentoCapsules';
@@ -107,3 +108,30 @@ function renderCalendar(){
         calendarGrid.appendChild(dayCell);
     }
 }
+
+
+function handleDayClick(timestamp){
+    const clickedDate = new Date(timestamp);
+    const normalizedClickedDate = normalizeDateToDay(clickedDate);
+    currentSelectedCapsuleId(formatDateId(normalizedClickedDate));
+}
+
+
+/* update calendar when buttons press */
+document.getElementById('prev-month-btn').addEventListener('click', () => {
+    currentMonth--;
+    if (currentMonth<0){
+        currentMonth = 11;
+        currentYear--;
+    }
+    renderCalendar();
+});
+
+document.getElementById('next-month-btn').addEventListener('click', () => {
+    currentMonth++;
+    if (currentMonth>11){
+        currentMonth = 0;
+        currentYear++;
+    }
+    renderCalendar();
+});
