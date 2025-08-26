@@ -109,13 +109,11 @@ function renderCalendar(){
     }
 }
 
-
 function handleDayClick(timestamp){
     const clickedDate = new Date(timestamp);
     const normalizedClickedDate = normalizeDateToDay(clickedDate);
     currentSelectedCapsuleId(formatDateId(normalizedClickedDate));
 }
-
 
 /* update calendar when buttons press */
 document.getElementById('prev-month-btn').addEventListener('click', () => {
@@ -135,3 +133,43 @@ document.getElementById('next-month-btn').addEventListener('click', () => {
     }
     renderCalendar();
 });
+
+function selectCapsule(capsuleId){
+    currentSelectedCapsuleId = capsuleId;
+    renderCalendar();
+    renderSelectedCapsule();
+}
+
+function renderSelectedCapsule(){
+    const capsuleContentDiv = document.getElementById('capsule-content');
+    capsuleContentDiv.innerHTML = '';
+
+    const selectedCapsule = capsules.find(c => c.id === currentSelectedCapsuleId);
+    const currentSelectedDate = normalizeDateToDay(new Date(currentSelectedCapsuleId));
+
+    if (!selectedCapsule){
+        capsuleContentDiv.innerHTML = `
+            <div class="create-capsule-button-wrapper">
+                <p>no capsule found for ${formatDateReadable(currentSelectedDate)}.</p>
+                <button id="create-capsule-for-day-btn" class="create-capsule-button">
+                    + create a capsule for this day
+               </button>
+            </div>
+        `;
+
+        document.getElementById('create-capsule-for-day-btn').addEventListener('click', () => {
+            createCapsule(currentSelectedCapsuleId);
+        });
+
+        return;
+    }
+
+    const headerHtml = `
+        <div class="capsule-header">
+            <h2>capsule for ${formatDateReadable(currentSelectedDate)}</h2>
+            <p>capsule id: ${selectedCapsule.id}</p>
+        </div>
+    `;
+
+    capsuleContentDiv.insertAdjacentHTML('beforeend', headerHtml);
+}
