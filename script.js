@@ -74,7 +74,7 @@ function renderCalendar(){
     let startDayIndex = firstDay.getDay();
     startDayIndex = (startDayIndex === 0) ? 6 : startDayIndex-1;
 
-    const startDate = new Date(firstDay); 
+    const startDate = new Date(firstDay);
     startDate.setDate(firstDay.getDate() - startDayIndex);
 
     for (let i = 0; i < 42; i++){
@@ -95,7 +95,11 @@ function renderCalendar(){
         const currId = formatDateId(normalizeDateToDay(day));
         const hasCapsule = capsules.some(c => c.id === currentDayId);
 
-        if (currentSelectedCapsuleId == currentDayId && day.getMonth() == currentMonth){
+        if (hasCapsule && day.getMonth() === currentMonth){
+            dayCell.classList.add('has-capsule');
+        }
+
+        if (currentSelectedCapsuleId == currId && day.getMonth() == currentMonth){
             dayCell.classList.add('selected-day');
             dayCell.classList.remove('has-capsule');
         }
