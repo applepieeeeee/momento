@@ -37,7 +37,7 @@
                 flex-grow: 1;
                 flex-direction: column;
 
-                gap: 15px;
+                gap: 20px;
                 padding: 20px;
             }
 
@@ -45,15 +45,15 @@
                 width: 8px;
             }
             ::-webkit-scrollbar-track{
-                background: #6d7f8c;
+                background: #b1bbc4;
                 border-radius: 12px;
             }
             ::-webkit-scrollbar-thumb{
-                background: #bfd1e2;
+                background: #879cab;
                 border-radius: 12px;
             }
             ::-webkit-scrollbar-thumb:hover{
-                background: #d3e0ee;
+                background: #6a7c8f;
             }
 
             .left-panel{
@@ -81,6 +81,38 @@
                 margin-top: 10px;
             }
 
+
+            .calendar-navigation{
+                display: felx;
+                justify-content: space-between;
+                align-items: center;
+                background-color: rgba(255,255,255,0.15);
+
+                padding: 12px;
+                border-radius: 8px;
+                margin-bottom: 16px;
+            }
+
+            .calendar-navigation button{
+                padding: 8px;
+                border-radius: 1000px;
+
+                border: none;
+                background: none;
+                cursor: pointer;
+            }
+
+            .calendar-navigation button:hover{
+                background-color: rgba(255,255,255,0.25);
+            }
+
+            .calendar-navigation button svg{
+                height: 24px;
+                width: 24px;
+                stroke: currentColor;
+                stroke-width: 2;
+                color: white;
+            }
 
         </style>
     </head>
@@ -128,5 +160,4 @@
             </div>
         </div>
     </body>
-
 </html>
