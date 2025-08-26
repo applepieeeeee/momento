@@ -54,3 +54,52 @@ function loadCapsules(){
 function saveCapsules(){
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(capsules));
 }
+
+/*
+goalssss: 
+update the date display 
+calc start + end dates
+creates div elements for each day
+check if capsule exists for each day
+*/
+
+function renderCalendar(){
+    const calendarGrid = document.getElementById('calendar-grid');
+    calendarGrid.innerHTML = '';
+    document.getElementById('current-month-year').textContent = '${monthNames[currentMonth]} ${currentYear}';
+    
+    const firstDay = new Date(currentYear, currentMonth, 1);
+    const lastDay = new Date(currentYear, currentMonth+1, 0);
+
+    let startDayIndex = firstDay.getDay();
+    startDayIndex = (startDayIndex === 0) ? 6 : startDayIndex-1;
+
+    const startDate = new Date(firstDay); 
+    startDate.setDate(firstDay.getDate() - startDayIndex);
+
+    for (let i = 0; i < 42; i++){
+        const day = new Date(startDate);
+        day.setDate(startDate.getDate() + i);
+
+        const dayCell = document.createElement('div');
+        dayCell.classList.add('calendar-day-cell');
+
+        if (day.getMonth() != currentMonth){
+            dayCell.classList.add('dimmed');
+        } else {
+            dayCell.onclick = () => handleDayClick(day.getTime());
+        }
+
+        dayCell.textContent = day.getDate();
+
+        const currId = formatDateId(normalizeDateToDay(day));
+        const hasCapsule = capsules.some(c => c.id === currentDayId);
+
+        if (currentSelectedCapsuleId == currentDayId && day.getMonth() == currentMonth){
+            dayCell.classList.add('selected-day');
+            dayCell.classList.remove('has-capsule');
+        }
+
+        calendarGrid.appendChild(dayCell);
+    }
+}
