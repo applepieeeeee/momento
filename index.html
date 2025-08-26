@@ -114,6 +114,83 @@
                 color: white;
             }
 
+            .current-month-year{
+                font-size: 24px;
+                font-weight: 600;
+                text-align: center;
+                letter-spacing: 0.05em;
+            }
+
+            .weekday-headers{
+                display: grid;
+                grid-template-columns: repeat(7, minmax(0,ifr));
+
+                gap: 4px;
+
+                text-align: center;
+                font-size: 14px;
+                font-weight: 500;
+
+                opacity: 0.8;
+                margin-bottom: 8px;
+            }
+
+            .calendar-grid{
+                display: grid;
+                grid-template-columns: repeat(7, minmax(0, ifr));
+                
+                gap: 4px;
+
+                text-align: center;
+                background-color: rgba(255,255,255,0.08);
+
+                padding: 8px;
+                border-radius: 8px;
+            }
+
+            .calendar-day-cell{
+                padding:8px;
+                border-radius: 8px;
+
+                font-weight: 600;
+                color: white;
+                min-height: 48px;
+
+                display: flex;
+                align-items:center;
+                justify-content: center;
+
+                cursor: pointer;
+                flex-grow: 1;
+            }
+
+            .calendar-day-cell.dimmed{
+                opacity: 0.4;
+                pointer-events: none;
+            }
+
+            .calendar-day-cell:not(.dimmed):hover{
+                background-color: rgba(255,255,255,0.2);
+            }
+
+            .calendar-day-cell.has-capsule{
+                background-color: #a7c7e7;
+            }
+
+            .calendar-day-cell.has-capsule:hover{
+                background-color: #8bb4d8;
+            }
+
+            .calendar-day-cell.selected-day{
+                background-color: #fffacd;
+                color: #3d6b9a;
+                border: 2px solid #3d6b9a;
+            }
+
+            .calendar-day-cell.selected-day:hover{
+                background-color: #ffe8a7;
+            }
+
         </style>
     </head>
 
