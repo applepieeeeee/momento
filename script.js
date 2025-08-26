@@ -50,14 +50,14 @@ function loadCapsules(){
     capsules = data ? JSON.parse(data) : [];
     capsules.sort((a,b) => b.id.localeCompare(a.id));
 }
- 
+
 function saveCapsules(){
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(capsules));
 }
 
 /*
 goalssss: 
-update the date display 
+update the date display
 calc start + end dates
 creates div elements for each day
 check if capsule exists for each day
