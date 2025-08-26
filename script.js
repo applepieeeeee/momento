@@ -9,6 +9,7 @@ const monthNames = ["january", "february", "march", "april", "may",
                     "june", "july", "august", "september", "october",
                     "november", "december"];
 
+
 /* unique id to store items*/
 function generateUUID(){
     return 'xxxxxxxx-xxxx-4xxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c){
@@ -18,6 +19,7 @@ function generateUUID(){
     });
 }
 
+/* all date function lol*/
 function parseDate(date){
     return new Intl.DateTimeFormat('en-US', {
         year: 'numeric',
@@ -26,6 +28,29 @@ function parseDate(date){
     }).format(date);
 }
 
-function createCapsule(){
+function formatDateId(date){
+    const d = new Date(date);
 
+    const year = d.getFullYear();
+    const month = (d.getMonth() + 1).toString().padStart(2, '0');
+    const day = d.getDate.toString().padStart(2, '0');
+
+    return '${year}-${month}-${day}';
+}
+
+function normalizeDateToDay(date){
+    const d = new Date(date);
+    d.setHours(0,0,0,0);
+    return d;
+}
+
+/* local storage 4 capsules */
+function loadCapsules(){
+    const date = localStorage.getItem(LOCAL_STORAGE_KEY);
+    capsules = data ? JSON.parse(data) : [];
+    capsules.sort((a,b) => b.id.localeCompare(a.id));
+}
+ 
+function saveCapsules(){
+    localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(capsules));
 }
