@@ -191,6 +191,43 @@
                 background-color: #ffe8a7;
             }
 
+
+            .right-panel{
+                display: flex;
+                flex-direction: column;
+                gap: 24px;
+                padding: 32px;
+
+                background-color: var(--panel-bg-color);
+                border-radius: 12px;
+                flex-grow: 1;
+            }
+
+            .search-bar{
+                margin-bottom: 24px;
+                display: flex;
+                gap: 12px;
+                align-items: center;
+            }
+
+            .search-input{
+                flex-grow: 1;
+                padding: 12px;
+                border-radius: 12px;
+
+                border: 1px solid #dbe4ee;
+                transition: all 0.2s ease;
+
+                color: #292524;
+                background-color: #fff;
+            }
+
+            .search-input:focus{
+                outline-none;
+                border-color: #6a9ac9;
+            }
+
+
         </style>
     </head>
 
