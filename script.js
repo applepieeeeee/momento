@@ -350,5 +350,27 @@ searchInput.addEventListener('input', (e) => {
         currentSelectedCapsuleId = null;
         renderSelectedCapsule([]);
     }
+});
 
+const itemTypeSelect = document.getElementById('item-type-select');
+const noteForm = document.getElementById('note-form');
+const fileForm = document.getElementById('file-form');
+const memoryForm = document.getElementById('memory-form');
+const musicForm = document.getElementById('music-form');
+
+itemTypeSelect.addEventListener('change', (e) => {
+    noteForm.style.display = 'none';
+    fileForm.style.display = 'none';
+    memoryForm.style.display = 'none';
+
+    switch(e.target.value){
+        case 'note':
+        case 'file':
+        case 'memory':
+        case 'music':
+    }
+})
+
+document.getElementById('add-item-form').addEventListener('submit', (e) => {
+    
 })
