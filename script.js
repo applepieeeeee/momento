@@ -365,12 +365,47 @@ itemTypeSelect.addEventListener('change', (e) => {
 
     switch(e.target.value){
         case 'note':
+            noteForm.style.display = 'block';
+            break;
         case 'file':
+            fileForm.style.display = 'block';
+            break;
         case 'memory':
+            memoryForm.style.display = 'block';
+            break;
         case 'music':
+            musicForm.style.display = 'block';
+            break;
     }
-})
+});
 
 document.getElementById('add-item-form').addEventListener('submit', (e) => {
-    
-})
+    e.preventDefault();
+    const type = itemTypeSelect.value;
+    let data = {};
+
+    switch(type){
+        case 'note':
+            data.content = document.getElementById('note-text-input').value;
+            if (data.content) addItemToCapsule('note', data);
+            break;
+        case 'file':
+            data.url = document.getElementById('file-link-input').value;
+            data.title = document.getElementById('file-title-input').value;
+            if (data.url && data.title) addItemToCapsule('file', data);
+            break;
+        case 'memory':
+            data.url = document.getElementById('memory-image-input').value;
+            data.description = document.getElementById('memory-description-input').value;
+            if (data.url && data.description) addItemToCapsule('memory', data);
+            break;
+        case 'music':
+            data.url = document.getElementById('music-link-input').value;
+            data.title = document.getElementById('music-title-input').value;
+            if (data.url && data.title) addItemToCapsule('music', data);
+            break;
+    }
+    hideModal();
+});
+
+document.getElementById('close-modal-btn').addEventListener('click', hideModal);
