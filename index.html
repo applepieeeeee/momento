@@ -86,9 +86,8 @@
                 opacity: 0.8;
             }
 
-            /* nav */
             .calendar-navigation{
-                display: felx;
+                display: flex;
                 justify-content: space-between;
                 align-items: center;
                 background-color: rgba(255,255,255,0.15);
@@ -97,26 +96,29 @@
                 border-radius: 8px;
                 margin-bottom: 16px;
             }
+            }
 
             .calendar-navigation button{
                 padding: 8px;
                 border-radius: 2000px;
 
-                border: none;
+                border: 0px;
                 background: none;
                 cursor: pointer;
             }
 
             .calendar-navigation button:hover{
                 background-color: rgba(255,255,255,0.25);
+                border: 0px;
             }
 
             .calendar-navigation button svg{
                 height: 24px;
                 width: 24px;
-                stroke: currentColor;
                 stroke-width: 2;
-                color: rgb(241, 230, 230);
+                color: rgb(139, 9, 9);
+
+                border: 0px;
             }
 
             .current-month-year{
@@ -552,7 +554,7 @@
                     <button id = "prev-month-btn">
                         <svg xmlns = "http://www.w3.org/2000/svg" class = "h-6 w-6" fill = "none" 
                              viewBox = "0 0 24 24" stroke = "currentColor" stroke-width = "2">
-                            <path stroke-linecap = "round" stroke-linejoin = "round" d = "M15 191-7-7 7-7" />
+                            <path stroke-linecap = "round" stroke-linejoin = "round" d = "M15 19l-7-7 7-7" />
                         </svg>
                     </button>
 
@@ -560,7 +562,7 @@
 
                     <button id = "next-month-btn">
                         <svg xmlns = "http://www.w3.org/2000/svg" class = "h-6 w-6" fill = "none" viewBox = "0 0 24 24" stroke = "currentColor" stroke-width = "2">
-                            <path stroke-linecap = "round" stroke-linejoin = "round" d = "M9 517 7-7 7"></path>
+                            <path stroke-linecap = "round" stroke-linejoin = "round" d = "M9 5l7 7-7 7"></path>
                         </svg>
                     </button>
                 </div>
@@ -594,7 +596,7 @@
         <div id = "item-modal" class = "modal-overlay" style = "display: none;">
             <div class = "modal-content">
                 <button class = "modal-close" id = "close-modal-btn">&times;</button>
-                <h3 id = "add-item-form" class = "add-item-form">
+                <div id = "add-item-form" class = "add-item-form">
                     <select id = "item-type-select">
                         <option value = "note">note</option>
                         <option value = "file">file</option>
@@ -622,7 +624,7 @@
                     </div>
 
                     <button type = "submit" class = "add-item-button">add item</button>
-                </h3>
+                </div>
             </div>
         </div>
 
