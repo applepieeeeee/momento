@@ -34,7 +34,7 @@ function formatDateId(date){
 
     const year = d.getFullYear();
     const month = (d.getMonth() + 1).toString().padStart(2, '0');
-    const day = d.getDate.toString().padStart(2, '0');
+    const day = d.getDate().toString().padStart(2, '0');
 
     return '${year}-${month}-${day}';
 }
@@ -47,7 +47,7 @@ function normalizeDateToDay(date){
 
 /* local storage 4 capsules */
 function loadCapsules(){
-    const date = localStorage.getItem(LOCAL_STORAGE_KEY);
+    const data = localStorage.getItem(LOCAL_STORAGE_KEY);
     capsules = data ? JSON.parse(data) : [];
     capsules.sort((a,b) => b.id.localeCompare(a.id));
 }
@@ -94,7 +94,7 @@ function renderCalendar(){
         dayCell.textContent = day.getDate();
 
         const currId = formatDateId(normalizeDateToDay(day));
-        const hasCapsule = capsules.some(c => c.id === currentDayId);
+        const hasCapsule = capsules.some(c => c.id === currId);
 
         if (hasCapsule && day.getMonth() === currentMonth){
             dayCell.classList.add('has-capsule');
@@ -112,7 +112,10 @@ function renderCalendar(){
 function handleDayClick(timestamp){
     const clickedDate = new Date(timestamp);
     const normalizedClickedDate = normalizeDateToDay(clickedDate);
-    currentSelectedCapsuleId(formatDateId(normalizedClickedDate));
+
+    currentSelectedCapsuleId = formatDateId(normalizedClickedDate);
+    renderCalendar();
+    renderSelectedCapsule();
 }
 
 /* update calendar when buttons press */
@@ -174,12 +177,61 @@ function renderSelectedCapsule(){
     capsuleContentDiv.insertAdjacentHTML('beforeend', headerHtml);
 }
 
+function renderCapsuleItems(capsule){
+    const capsuleContentDiv = document.getElementById('capsule-content');
+    capsuleContentDiv.innerHTML += `
+        ${renderSection('notes', capsule.notes)}
+        ${renderSection('memories', capsule.memories)}
+        ${renderSection('filesLinks', capsule.filesLinks)}
+        ${renderSection('music', capsule.music)}
+    `;
+}
+
+function renderSection(sectionName, items){
+    const sectionTitleMap = {
+        notes: 'notes',
+        memories: 'memories',
+        filesLinks: 'files & links',
+        music: 'music'
+    }
+
+    const hasItems = items && items.length > 0;
+
+    const itemsHtml = hasItems ? items.map(item => {
+        const deleteBtnHtml = `<button class="action-button delete-btn" onclick="deleteItem('${currentSelectedCapsuleId}', 
+                                '${sectionName}', '${item.id}')"><i class="fas fa-trash"></i></button>`;
+        
+        const editBtnHtml = `<button class="action-button edit-btn" onclick="editItem('${currentSelectedCapsuleId}', 
+                                '${sectionName}', '${item.id}')"><i class="fas fa-edit"></i></button>`;
+        
+        let itemContentHtml = '';
+        switch(sectionName){
+            case 'notes':
+                itemContentHtml = `<div class="note-card item-card"><p>${item.content}</p></div>`;
+                return `<div class = "note-card item-card">${item.content}<div class = "note-action">${editBtnHtml}${deleteBtnHtml}</div></div>`;
+            case 'filesLinks':
+                itemContentHtml = `<a href = "${item.url}" target = "_blank">${item.title}</a>`;
+                return `<div class = "item-card file-link-item">${itemContentHtml}${deleteBtnHtml}</div>`;
+            case 'memories':
+                const placeholderUrl = 'https://placehold.co/150x150/bdb7b0/ffffff?text=Image';
+                itemContentHtml = `<img src="${item.url}" alt="${item.description}" onerror="this.src='${placeholderUrl}'"> <p>${item.description}</p>`;
+                return `<div class="memory-item item-card">${itemContentHtml}${deleteBtnHtml}</div>`;
+            case 'music':
+                itemContentHtml = `<audio controls src="${item.url}"></audio>`;
+                return `<div class='item-card music-item'><span>${item.title}</span>${itemContentHtml}${deleteBtnHtml}</div>`;
+            default:
+                return '';
+        }
+    }).join('') : `<p class = "empty-message"> no ${sectionName} found.</p>`;
+
+
+}
 
 function createCapsule(currentDayId){
     const dayReadable = formatDateReadable(new Date(currentDayId));
 
     if (capsules.some(c => c.id === currentDayId)){
-        console.warn('a capsule for ${dayReadable} alr exists');
+        console.warn(`a capsule for ${dayReadable} alr exists`);
         selectCapsule(currentDayId);
         return;
     }
