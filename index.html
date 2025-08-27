@@ -4,7 +4,7 @@
 <html>
     <head>
         <meta charset = "UTF-8">
-        <meta name = "viewport" content = "width=device-width, initial-scale = 1">
+        <meta name = "viewport" content = "width=device-width, initial-scale=1">
         <title>momento: a digital time capsule</title>
 
         <link rel = "preconnect" href = "https://fonts.googleapis.com">
@@ -12,6 +12,7 @@
         <link href = "https://fonts.googleapis.com/css2?family=Gaegu&display=swap" rel = "stylesheet">
 
         <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
+        
         <style>
 
             /* vars */
@@ -28,8 +29,8 @@
 
                 margin: 0;
                 padding: 0;
-                min-height: 100vh;
-
+                min-height: 100vh; 
+                
                 background-color: var(--bg-color);
                 display: flex;
                 flex-direction: column;
@@ -44,9 +45,16 @@
                 padding: 20px;
             }
 
+            @media (min-width: 768px){
+                .app-layout{
+                    flex-direction: row;
+                }
+            }
+
             ::-webkit-scrollbar{
                 width: 8px;
             }
+            
             ::-webkit-scrollbar-track{
                 background: #7e8f9e;
                 border-radius: 12px;
