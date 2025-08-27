@@ -550,13 +550,13 @@
 
                 <div class = "calendar-navigation">
                     <button id = "prev-month-btn">
-                        <svg xmlns = "https://www.w3.org/2000/svg" class = "h-6 w-6" fill = "none" 
+                        <svg xmlns = "http://www.w3.org/2000/svg" class = "h-6 w-6" fill = "none" 
                              viewBox = "0 0 24 24" stroke = "currentColor" stroke-width = "2">
                             <path stroke-linecap = "round" stroke-linejoin = "round" d = "M15 191-7-7 7-7" />
                         </svg>
                     </button>
 
-                    <h2 id = "current-month-year" class = "current-month-year"></h2>
+                    <h2 id = "current-month-year" class = "current-month-year"></h2
 
                     <button id = "next-month-btn">
                         <svg xmlns = "http://www.w3.org/2000/svg" class = "h-6 w-6" fill = "none" viewBox = "0 0 24 24" stroke = "currentColor" stroke-width = "2">
@@ -588,6 +588,37 @@
                 <div id = "capsule-content" class = "capsule-content">
                     <p class = "placeholder">select a day on the calendar to view its capsule</p>
                 </div>
+            </div>
+        </div>
+
+        <div id = "item-modal" class = "modal-overlay" style = "display: none;">
+            <div class = "modal-content">
+                <button class = "modal-close" id = "close-modal-btn">&times;</button>
+                <h3 id = "add-item-form" class = "add-item-form">
+                    <select id = "item-type-select">
+                        <option value = "note">note</option>
+                        <option value = "file">file</option>
+                        <option value = "memory">memory</option>
+                        <option value = "music">music</option>
+                    </select>
+
+                    <div id = "note-form" class = "item-form-group">
+
+                    </div>
+
+                    <div id = "file-form" class = "item-form-group" style = "display:none;">
+
+                    </div>
+
+                    <div id = "memory-form" class = "item-form-group" style = "display:none;">
+
+                    </div>
+
+                    <div id = "music-form" class = "item-form-group" style = "display:none;">
+
+                    </div>
+
+                </h3>
             </div>
         </div>
 
