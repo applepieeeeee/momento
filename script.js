@@ -129,7 +129,7 @@ document.getElementById('prev-month-btn').addEventListener('click', () => {
 
 document.getElementById('next-month-btn').addEventListener('click', () => {
     currentMonth++;
-    if (currentMonth>11){
+    if (currentMonth > 11){
         currentMonth = 0;
         currentYear++;
     }
@@ -145,7 +145,6 @@ function selectCapsule(capsuleId){
 function renderSelectedCapsule(){
     const capsuleContentDiv = document.getElementById('capsule-content');
     capsuleContentDiv.innerHTML = '';
-
     const selectedCapsule = capsules.find(c => c.id === currentSelectedCapsuleId);
     const currentSelectedDate = normalizeDateToDay(new Date(currentSelectedCapsuleId));
 
@@ -185,6 +184,24 @@ function renderCapsuleItems(capsule){
         ${renderSection('filesLinks', capsule.filesLinks)}
         ${renderSection('music', capsule.music)}
     `;
+
+    const addItemFormHtml = `
+        <div class = "add-item-form">
+            <select id = "item-type-select">
+                <option value = "note">note</option>
+                <option value = "file">file</option>
+                <option value = "memory">memory</option>
+                <option value = "music">music</option>
+            </select>
+
+            <div id = "note-form" class = "item-form-group">
+                <textarea id = "note-text-input" placeholder = "what do you want to remember?" rows = "4"></textarea>
+            </div>
+            <div id = >
+            </div>
+        </div>
+    
+    `
 }
 
 function renderSection(sectionName, items){
