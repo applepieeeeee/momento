@@ -268,3 +268,28 @@ function hideModal(){
 
     document.getElementById('add-item-form').reset();
 }
+
+function addItemToCapsule(type, data){
+    const capsule = capsules.find(c => c.id === currentSelectedCapsuleId);
+    if (!capsule) return;
+
+    data.id = generateUUID();
+
+    switch(type){
+        case 'note':
+            capsule.notes.push(data);
+            break;
+        case 'file':
+            capsule.filesLinks.push(data);
+            break.
+        case'memory':
+            capsule.memories.push(data);
+            break;
+        case 'music':
+            capsule.music.push(data);
+            break;
+    }
+
+    saveCapsules();
+    renderSelectedCapsule();
+}
