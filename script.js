@@ -293,3 +293,19 @@ function addItemToCapsule(type, data){
     saveCapsules();
     renderSelectedCapsule();
 }
+
+function deleteItem(capsuleId, section, itemId){
+    const capsule = capsules.find(c => c.id === capsuleId);
+    if (!capsule) return;
+
+    const index = capsule[section].findIndex(item => item.id === itemId);
+    if (index > -1){
+        capsule[section].splice(index,1);
+        saveCapsules();
+        renderSelectedCapsule();
+    }
+}
+
+function editItem(capsuleId, section, itemId){
+    
+}
