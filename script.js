@@ -111,6 +111,7 @@ function renderCalendar(){
 function handleDayClick(timestamp){
     const clickedDate = new Date(timestamp);
     const normalizedClickedDate = normalizeDateToDay(clickedDate);
+    
     currentSelectedCapsuleId = formatDateId(normalizedClickedDate);
     renderCalendar();
     renderSelectedCapsule();
@@ -119,12 +120,12 @@ function handleDayClick(timestamp){
 /* update calendar when buttons press */
 document.getElementById('prev-month-btn').addEventListener('click', () => {
     currentMonth--;
-    if (currentMonth < 0){
+    if(currentMonth < 0){
         currentMonth = 11;
         currentYear--;
     }
     renderCalendar();
-}); 
+});
 
 document.getElementById('next-month-btn').addEventListener('click', () => {
     currentMonth++;
@@ -150,6 +151,7 @@ function renderSelectedCapsule(){
 
     if (!selectedCapsule){
         capsuleContentDiv.innerHTML = `
+
             <div class="create-capsule-button-wrapper">
                 <p>no capsule found for ${parseDate(currentSelectedDate)}.</p>
                 <button id="create-capsule-for-day-btn" class="create-capsule-button">
@@ -390,21 +392,25 @@ document.getElementById('add-item-form').addEventListener('submit', (e) => {
             data.content = document.getElementById('note-text-input').value;
             if (data.content) addItemToCapsule('note', data);
             break;
+
         case 'file':
             data.url = document.getElementById('file-link-input').value;
             data.title = document.getElementById('file-title-input').value;
             if (data.url && data.title) addItemToCapsule('file', data);
             break;
+
         case 'memory':
             data.url = document.getElementById('memory-image-input').value;
             data.description = document.getElementById('memory-description-input').value;
             if (data.url && data.description) addItemToCapsule('memory', data);
             break;
+
         case 'music':
             data.url = document.getElementById('music-link-input').value;
             data.title = document.getElementById('music-title-input').value;
             if (data.url && data.title) addItemToCapsule('music', data);
             break;
+
     }
     hideModal();
 });
