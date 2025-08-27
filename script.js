@@ -1,3 +1,4 @@
+
 /* hi there */
 
 /* vars */
@@ -77,7 +78,7 @@ function renderCalendar(){
 
     const startDate = new Date(firstDay);
     startDate.setDate(firstDay.getDate() - startDayIndex);
-
+ 
     for (let i = 0; i < 42; i++){
         const day = new Date(startDate);
         day.setDate(startDate.getDate() + i);
@@ -126,7 +127,7 @@ document.getElementById('prev-month-btn').addEventListener('click', () => {
         currentYear--;
     }
     renderCalendar();
-});
+}); 
 
 document.getElementById('next-month-btn').addEventListener('click', () => {
     currentMonth++;
@@ -409,3 +410,12 @@ document.getElementById('add-item-form').addEventListener('submit', (e) => {
 });
 
 document.getElementById('close-modal-btn').addEventListener('click', hideModal);
+
+document.getElementById('item-modal').addEventListener('click', (e) => {
+    if (e.target === e.currentTarget){
+        hideModal();
+    }
+});
+
+loadCapsules();
+renderCalendar();
