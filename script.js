@@ -71,10 +71,8 @@ function renderCalendar(){
     document.getElementById('current-month-year').textContent = `${monthNames[currentMonth]} ${currentYear}`;
     
     const firstDay = new Date(currentYear, currentMonth, 1);
-    const lastDay = new Date(currentYear, currentMonth+1, 0);
 
     let startDayIndex = firstDay.getDay();
-    startDayIndex = (startDayIndex === 0) ? 6 : startDayIndex-1;
 
     const startDate = new Date(firstDay);
     startDate.setDate(firstDay.getDate() - startDayIndex);
@@ -113,7 +111,6 @@ function renderCalendar(){
 function handleDayClick(timestamp){
     const clickedDate = new Date(timestamp);
     const normalizedClickedDate = normalizeDateToDay(clickedDate);
-
     currentSelectedCapsuleId = formatDateId(normalizedClickedDate);
     renderCalendar();
     renderSelectedCapsule();
@@ -122,7 +119,7 @@ function handleDayClick(timestamp){
 /* update calendar when buttons press */
 document.getElementById('prev-month-btn').addEventListener('click', () => {
     currentMonth--;
-    if (currentMonth<0){
+    if (currentMonth < 0){
         currentMonth = 11;
         currentYear--;
     }
