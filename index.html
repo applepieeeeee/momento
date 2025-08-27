@@ -12,14 +12,14 @@
         <link href = "https://fonts.googleapis.com/css2?family=Gaegu&display=swap" rel = "stylesheet">
 
         <link rel = "stylesheet" href = "https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"/>
-        
+            
         <style>
 
             /* vars */
             :root{
                 --font1: "Gaegu", cursive;
                 --bg-color: #f5ecdc;
-                --text-color: #253c5f;
+                --text-color: #12233d;
                 --panel-bg-color: #dbccb3;
             }
             
@@ -122,8 +122,8 @@
             .calendar-navigation button svg{
                 height: 24px;
                 width: 24px;
-                stroke-width: 2;
-                color: rgb(139, 9, 9);
+                stroke-width: 4;
+                color: rgba(163, 10, 10, 0.877);
 
                 border: 0px;
             }
@@ -154,7 +154,7 @@
             
                 gap: 4px;
                 text-align: center;
-                background-color: rgba(255,255,255,0.08);
+                background-color: rgba(155, 114, 80, 0.137);
             
                 padding: 8px;
                 border-radius: 8px;
@@ -164,8 +164,8 @@
                 padding:8px;
                 border-radius: 8px;
 
-                font-weight: 600;
-                color: rgb(238, 228, 217);
+                font-weight: 900;
+                color: var(--text-color);
                 min-height: 48px;
 
                 display: flex;
@@ -186,17 +186,17 @@
             }
 
             .calendar-day-cell.has-capsule{
-                background-color: #a7c7e7;
+                background-color: #c29b7cc0;
             }
 
             .calendar-day-cell.has-capsule:hover{
-                background-color: #8bb4d8;
+                background-color: #997658a6;
             }
 
             .calendar-day-cell.selected-day{
-                background-color: #fffacd;
-                color: #517599;
-                border: 2px solid #486581;
+                background-color: #fffacd98;
+                color: #274a6d;
+                border: none;
             }
 
             .calendar-day-cell.selected-day:hover{
@@ -270,6 +270,8 @@
                 height: 100%;
                 padding: 16px;
                 text-align: center;
+
+                font-family: 'Gaegu', cursive;
             }
 
             .create-capsule-button-wrapper p{
@@ -489,7 +491,7 @@
             }
 
             .add-item-button{
-                background-color: #6a9ac9;
+                background-color: #b8c4d1;
                 color: #fff;
 
                 padding: 8px;
@@ -505,7 +507,7 @@
             }
 
             .add-item-button:hover{
-                background-color: #5a8cbf;
+                background-color: #8597a8;
             }
 
             .add-item-form.row-gap.add-item-button{
