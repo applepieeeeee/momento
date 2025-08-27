@@ -64,10 +64,11 @@ creates div elements for each day
 check if capsule exists for each day
 */
 
+
 function renderCalendar(){
     const calendarGrid = document.getElementById('calendar-grid');
     calendarGrid.innerHTML = '';
-    document.getElementById('current-month-year').textContent = '${monthNames[currentMonth]} ${currentYear}';
+    document.getElementById('current-month-year').textContent = `${monthNames[currentMonth]} ${currentYear}`;
     
     const firstDay = new Date(currentYear, currentMonth, 1);
     const lastDay = new Date(currentYear, currentMonth+1, 0);
@@ -210,21 +211,25 @@ function renderSection(sectionName, items){
         let itemContentHtml = '';
         switch(sectionName){
             case 'notes':
-                itemContentHtml = `<div class="note-card item-card"><p>${item.content}</p></div>`;
-                return `<div class = "note-card item-card">${item.content}<div class = "note-action">${editBtnHtml}${deleteBtnHtml}</div></div>`;
+                itemContentHtml = `<div class = "note-card item-card"><h4>note</h4><p>${item.content}</p><div class = "note-action">${editBtnHtml}${deleteBtnHtml}</div></div>`;
+                break;
             case 'filesLinks':
-                itemContentHtml = `<a href = "${item.url}" target = "_blank">${item.title}</a>`;
-                return `<div class = "item-card file-link-item">${itemContentHtml}${deleteBtnHtml}</div>`;
+                itemContentHtml = `<div class="itemcard file-link-item"><span><a href = "${item.url}" target="_blank">${item.title}</a></span>${deleteBtnHtml}</div>`;
+                break;
             case 'memories':
-                const placeholderUrl = 'https://placehold.co/150x150/bdb7b0/ffffff?text=Image';
-                itemContentHtml = `<img src="${item.url}" alt="${item.description}" onerror="this.src='${placeholderUrl}'"> <p>${item.description}</p>`;
-                return `<div class="memory-item item-card">${itemContentHtml}${deleteBtnHtml}</div>`;
+                const placeholderUrl = "https://placehold.co/150x150/bdb7b0/ffffff?text=Image";
+                itemContentHtml = `<div class="memory-item item-card"><img src="${item.url}" alt="${item.description}" onerror="this.src='${placeholderUrl}'"> <p>${item.description}</p> ${deleteBtnHtml}</div>`;
+                break;
             case 'music':
-                itemContentHtml = `<audio controls src="${item.url}"></audio>`;
-                return `<div class='item-card music-item'><span>${item.title}</span>${itemContentHtml}${deleteBtnHtml}</div>`;
+                itemContentHtml = `<div class='item-card music-item'><span>${item.title}</span><audio controls src="${item.url}"></audio>${deleteBtnHtml}</div>`;
+                break;
             default:
-                return '';
+                itemContentHtml = '';
+                break;
         }
+        
+        return itemContentHtml;
+
     }).join('') : `<p class = "empty-message"> no ${sectionName} found.</p>`;
 
     return `
