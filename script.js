@@ -223,7 +223,7 @@ function renderSection(sectionName, items){
                 return '';
         }
     }).join('') : `<p class = "empty-message"> no ${sectionName} found.</p>`;
-    
+
     return `
         <div class = "capsule-section">
             <h3>${sectionTitleMap[sectionName]}</h3>
@@ -232,7 +232,6 @@ function renderSection(sectionName, items){
             </div>
         </div>
     `;
-
 }
 
 function createCapsule(currentDayId){
@@ -256,4 +255,16 @@ function createCapsule(currentDayId){
     capsules.push(newCapsule);
     saveCapsules();
     selectCapsule(newCapsule.id);
+}
+
+function showModal(){
+    const modal = document.getElementById('item-modal');
+    modal.style.display = 'flex';
+}
+
+function hideModal(){
+    const modal = document.getElementById('item-modal');
+    modal.style.display = 'none';
+
+    document.getElementById('add-item-form').reset();
 }
