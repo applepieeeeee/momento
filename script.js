@@ -20,7 +20,7 @@ function generateUUID(){
     });
 }
 
-/* all date function lol*/
+/* all date function lol*/ 
 function parseDate(date){
     return new Intl.DateTimeFormat('en-US', {
         year: 'numeric',
@@ -198,12 +198,15 @@ function renderSection(sectionName, items){
     const hasItems = items && items.length > 0;
 
     const itemsHtml = hasItems ? items.map(item => {
+
         const deleteBtnHtml = `<button class="action-button delete-btn" onclick="deleteItem('${currentSelectedCapsuleId}', 
                                 '${sectionName}', '${item.id}')"><i class="fas fa-trash"></i></button>`;
         
+
         const editBtnHtml = `<button class="action-button edit-btn" onclick="editItem('${currentSelectedCapsuleId}', 
                                 '${sectionName}', '${item.id}')"><i class="fas fa-edit"></i></button>`;
         
+
         let itemContentHtml = '';
         switch(sectionName){
             case 'notes':
@@ -307,5 +310,18 @@ function deleteItem(capsuleId, section, itemId){
 }
 
 function editItem(capsuleId, section, itemId){
-    
+    if (section !== 'notes') return;
+
+    const capsule = capsules.find(c => c.id === capsuleId);
+    if (!capsule ) return;
+
+    const itemToEdit = capsule[section].find(item => item.id === itemId);
+    if (!itemToEdit) return;
+
+    const newContent = prompt("edit ur note", itemToEdit.content);
+    if (newContent !== null){
+        itemToEdit.content = newContent;
+        saveCapsules();
+        renderSelectedCapsule();
+    }
 }
