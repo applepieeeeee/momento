@@ -173,3 +173,27 @@ function renderSelectedCapsule(){
 
     capsuleContentDiv.insertAdjacentHTML('beforeend', headerHtml);
 }
+
+
+function createCapsule(currentDayId){
+    const dayReadable = formatDateReadable(new Date(currentDayId));
+
+    if (capsules.some(c => c.id === currentDayId)){
+        console.warn('a capsule for ${dayReadable} alr exists');
+        selectCapsule(currentDayId);
+        return;
+    }
+
+    const newCapsule = {
+        id: currentDayId,
+        date: dayReadable,
+        notes: [],
+        filesLinks: [],
+        memories: [],
+        music: []
+    };
+
+    capsules.push(newCapsule);
+    saveCapsules();
+    selectCapsule(newCapsule.id);
+}
