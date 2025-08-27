@@ -154,7 +154,7 @@ function renderSelectedCapsule(){
     if (!selectedCapsule){
         capsuleContentDiv.innerHTML = `
             <div class="create-capsule-button-wrapper">
-                <p>no capsule found for ${formatDateReadable(currentSelectedDate)}.</p>
+                <p>no capsule found for ${parseDate(currentSelectedDate)}.</p>
                 <button id="create-capsule-for-day-btn" class="create-capsule-button">
                     + create a capsule for this day
                </button>
@@ -170,7 +170,7 @@ function renderSelectedCapsule(){
 
     const headerHtml = `
         <div class="capsule-header">
-            <h2>capsule for ${formatDateReadable(currentSelectedDate)}</h2>
+            <h2>capsule for ${parseDate(currentSelectedDate)}</h2>
             <p>capsule id: ${selectedCapsule.id}</p>
         </div>
     `;
@@ -227,7 +227,6 @@ function renderSection(sectionName, items){
                 itemContentHtml = '';
                 break;
         }
-        
         return itemContentHtml;
 
     }).join('') : `<p class = "empty-message"> no ${sectionName} found.</p>`;
@@ -243,7 +242,7 @@ function renderSection(sectionName, items){
 }
 
 function createCapsule(currentDayId){
-    const dayReadable = formatDateReadable(new Date(currentDayId));
+    const dayReadable = parseDate(new Date(currentDayId));
 
     if (capsules.some(c => c.id === currentDayId)){
         console.warn(`a capsule for ${dayReadable} alr exists`);
@@ -350,10 +349,10 @@ searchInput.addEventListener('input', (e) => {
     if (filteredCapsules.length > 0){
         const firstMatch = filteredCapsules[0];
         currentSelectedCapsuleId = firstMatch.id;
-        renderSelectedCapsule(filteredCapsules);
+        renderSelectedCapsule();
     } else {
         currentSelectedCapsuleId = null;
-        renderSelectedCapsule([]);
+        renderSelectedCapsule();
     }
 });
 
