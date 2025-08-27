@@ -223,7 +223,15 @@ function renderSection(sectionName, items){
                 return '';
         }
     }).join('') : `<p class = "empty-message"> no ${sectionName} found.</p>`;
-
+    
+    return `
+        <div class = "capsule-section">
+            <h3>${sectionTitleMap[sectionName]}</h3>
+            <div class = "section-items-list">
+                ${itemsHtml}
+            </div>
+        </div>
+    `;
 
 }
 
