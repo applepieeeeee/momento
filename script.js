@@ -281,8 +281,8 @@ function addItemToCapsule(type, data){
             break;
         case 'file':
             capsule.filesLinks.push(data);
-            break.
-        case'memory':
+            break;
+        case 'memory':
             capsule.memories.push(data);
             break;
         case 'music':
