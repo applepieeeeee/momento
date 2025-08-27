@@ -197,11 +197,32 @@ function renderCapsuleItems(capsule){
             <div id = "note-form" class = "item-form-group">
                 <textarea id = "note-text-input" placeholder = "what do you want to remember?" rows = "4"></textarea>
             </div>
-            <div id = >
+
+            <div id = "file-form" class = "item-form-group" style = "display:none;">
+                <input type = "text" id = "file-link-input" placeholder = "enter a file url or link">
+                <input type = "text" id = "file-title-input" placeholder = "enter a title">
             </div>
+
+            <div id = "memory-form" class = "item-form-group" style = "display: none;">
+                <input type = "text" id = "memory-image-input" placeholder = "enter an image url">
+                <input type = "text" id = "memory-description-input" placeholder = "enter a description">
+            </div>
+
+            <div id = "music-form" class = "item-form-group" style = "display:none;">
+                <input type = "text" id = "music-link-input" placeholder = "enter music url">
+                <input type = "text" id = "music-title-input" placeholder = "sing title or desc">
+            </div>
+            <button type = "submit" class = "add-item-button">add item</button>
+            
         </div>
     
-    `
+    `;
+    capsuleContentDiv.insertAdjacentHTML('beforeend', addItemFormHTML);
+    setupAddItemForm();
+}
+
+function setupAddItemForm(){
+
 }
 
 function renderSection(sectionName, items){
