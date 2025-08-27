@@ -325,3 +325,30 @@ function editItem(capsuleId, section, itemId){
         renderSelectedCapsule();
     }
 }
+
+/* search func */
+const searchInput = document.getElementById('search-input');
+searchInput.addEventListener('input', (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+
+    if (searchTerm.length == 0){
+        renderSelectedCapsule();
+        return;
+    }
+    const filteredCapsules = capsules.filter(capsule =>
+        capsule.notes.some(note => note.content.toLowerCase().includes(searchTerm)) ||
+        capsule.filesLinks.some(file => file.title.toLowerCase().includes(searchTerm)) || file.url.toLowerCase().includes(searchTerm) ||
+        capsule.memories.some(memory => memory.description.toLowerCase().includes(searchTerm)) || memory.url.toLowerCase().includes(searchTerm) ||
+        capsule.music.some(music => music.title.toLowerCase().includes(searchTerm)) || music.url.toLowerCase().includes(searchTerm)
+    );
+
+    if (filteredCapsules.length > 0){
+        const firstMatch = filteredCapsules[0];
+        currentSelectedCapsuleId = firstMatch.id;
+        renderSelectedCapsule(filteredCapsules);
+    } else {
+        currentSelectedCapsuleId = null;
+        renderSelectedCapsule([]);
+    }
+
+})
