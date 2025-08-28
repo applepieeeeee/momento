@@ -250,6 +250,59 @@ function setupAddItemForm(){
                 break;
         }
     });
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const type = itemTypeSelect.value;
+        let data = {};
+
+        switch(type){
+            case 'note':
+                const noteContent = document.getElementById('note-text-input').value.trim();
+                if (noteContent) {
+                    data.content = noteContent;
+                    addItemToCapsule(type, data);
+                    document.getElementById('note-text-input').value = '';
+                }
+                break;
+
+            case 'file':
+                const fileLink = document.getElementById('file-link-input').value.trim();
+                const fileTitle = document.getElementById('file-title-input').value.trim() || 'untitled file :(';
+
+                if (fileLink) {
+                    data.url = fileLink;
+                    data.title = fileTitle;
+                    addItemToCapsule(type, data);
+                    document.getElementById('file-link-input').value = '';
+                    document.getElementById('file-title-input').value = '';
+                }
+                break;
+            case 'memory':
+                const memoryUrl = document.getElementById('memory-image-input').value.trim();
+                const memoryDesc = document.getElementById('memory-description-input').value.trim() || 'no description yet :(';
+                
+                if (memoryUrl) {
+                    data.url = memoryUrl;
+                    data.description = memoryDesc;
+                    addItemToCapsule(type, data);
+                    document.getElementById('memory-image-input').value = '';
+                    document.getElementById('memory-description-input').value = '';
+                }
+                break;
+            case 'music':
+                const musicUrl = document.getElementById('music-link-input').value.trim();
+                const musicTitle = document.getElementById('music-title-input').value.trim() || 'untitled track :(';
+                if (musicUrl) {
+                    data.url = musicUrl;
+                    data.title = musicTitle;
+                    addItemToCapsule(type, data);
+                    document.getElementById('music-link-input').value = '';
+                    document.getElementById('music-title-input').value = '';
+                }
+                break;
+        }
+    });
 }
 
 function renderSection(sectionName, items){
@@ -266,12 +319,10 @@ function renderSection(sectionName, items){
 
         const deleteBtnHtml = `<button class="action-button delete-btn" onclick="deleteItem('${currentSelectedCapsuleId}', 
                                 '${sectionName}', '${item.id}')"><i class="fas fa-trash"></i></button>`;
-        
 
         const editBtnHtml = `<button class="action-button edit-btn" onclick="editItem('${currentSelectedCapsuleId}', 
                                 '${sectionName}', '${item.id}')"><i class="fas fa-edit"></i></button>`;
         
-
         let itemContentHtml = '';
         switch(sectionName){
             case 'notes':
@@ -487,6 +538,3 @@ document.getElementById('item-modal').addEventListener('click', (e) => {
         hideModal();
     }
 });
-
-loadCapsules();
-renderCalendar();
