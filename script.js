@@ -185,53 +185,7 @@ function renderSelectedCapsule(){
             </button>
         </div>        
     `);
-
     document.getElementById('add-new-item-btn').addEventListener('click', showModal);
-}
-
-function renderCapsuleItems(capsule){
-    const capsuleContentDiv = document.getElementById('capsule-content');
-    capsuleContentDiv.innerHTML += `
-        ${renderSection('notes', capsule.notes)}
-        ${renderSection('memories', capsule.memories)}
-        ${renderSection('filesLinks', capsule.filesLinks)}
-        ${renderSection('music', capsule.music)}
-    `;
-
-    const addItemFormHtml = `
-        <div class = "add-item-form">
-            <select id = "item-type-select">
-                <option value = "note">note</option>
-                <option value = "file">file</option>
-                <option value = "memory">memory</option>
-                <option value = "music">music</option>
-            </select>
-
-            <div id = "note-form" class = "item-form-group">
-                <textarea id = "note-text-input" placeholder = "what do you want to remember?" rows = "4"></textarea>
-            </div>
-
-            <div id = "file-form" class = "item-form-group" style = "display:none;">
-                <input type = "text" id = "file-link-input" placeholder = "enter a file url or link">
-                <input type = "text" id = "file-title-input" placeholder = "enter a title">
-            </div>
-
-            <div id = "memory-form" class = "item-form-group" style = "display: none;">
-                <input type = "text" id = "memory-image-input" placeholder = "enter an image url">
-                <input type = "text" id = "memory-description-input" placeholder = "enter a description">
-            </div>
-
-            <div id = "music-form" class = "item-form-group" style = "display:none;">
-                <input type = "text" id = "music-link-input" placeholder = "enter music url">
-                <input type = "text" id = "music-title-input" placeholder = "sing title or desc">
-            </div>
-            <button type = "submit" class = "add-item-button">add item</button>
-            
-        </div>
-    
-    `;
-    capsuleContentDiv.insertAdjacentHTML('beforeend', addItemFormHTML);
-    setupAddItemForm();
 }
 
 function setupAddItemForm(){
