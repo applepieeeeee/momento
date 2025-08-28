@@ -342,6 +342,13 @@ function createCapsule(currentDayId){
 function showModal(){
     const modal = document.getElementById('item-modal');
     modal.style.display = 'flex';
+
+    document.getElementById('add-item-form').reset();
+    document.getElementById('item-type-select').value = 'note';
+    document.getElementById('note-form').style.display = 'block';
+    document.getElementById('file-form').style.display = 'none';
+    document.getElementById('memory-form').style.display = 'none';
+    document.getElementById('music-form').style.display = 'none';
 }
 
 function hideModal(){
