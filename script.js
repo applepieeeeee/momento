@@ -514,25 +514,21 @@ document.getElementById('add-item-form').addEventListener('submit', (e) => {
             data.title = document.getElementById('file-title-input').value;
             if (data.url && data.title) addItemToCapsule('file', data);
             break;
-
         case 'memory':
             data.url = document.getElementById('memory-image-input').value;
             data.description = document.getElementById('memory-description-input').value;
             if (data.url && data.description) addItemToCapsule('memory', data);
             break;
-
         case 'music':
             data.url = document.getElementById('music-link-input').value;
             data.title = document.getElementById('music-title-input').value;
             if (data.url && data.title) addItemToCapsule('music', data);
             break;
-
     }
     hideModal();
 });
 
 document.getElementById('close-modal-btn').addEventListener('click', hideModal);
-
 document.getElementById('item-modal').addEventListener('click', (e) => {
     if (e.target === e.currentTarget){
         hideModal();
