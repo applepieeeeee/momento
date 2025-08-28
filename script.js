@@ -418,6 +418,7 @@ searchInput.addEventListener('input', (e) => {
     const searchTerm = e.target.value.toLowerCase();
 
     if (searchTerm.length == 0){
+        renderCalendar();
         renderSelectedCapsule();
         return;
     }
@@ -429,12 +430,17 @@ searchInput.addEventListener('input', (e) => {
     );
 
     if (filteredCapsules.length > 0){
-        const firstMatch = filteredCapsules[0];
-        currentSelectedCapsuleId = firstMatch.id;
+        const firstM = filteredCapsules[0];
+        currentSelectedCapsuleId = firstM.id;
+        renderCalendar();
         renderSelectedCapsule();
     } else {
+        const capdiv = document.getElementById('capsule-content');
+        capdiv.innerHTML = '<p class="placeholder"> no capsules found </p>';
+        
+        const dayCells = document.querySelectorAll('.calendar-day-cell');
+        dayCells.forEach(cell => cell.classList.remove('selected-day'));
         currentSelectedCapsuleId = null;
-        renderSelectedCapsule();
     }
 });
 
