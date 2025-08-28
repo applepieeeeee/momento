@@ -222,7 +222,34 @@ function renderCapsuleItems(capsule){
 }
 
 function setupAddItemForm(){
+    const form = document.getElementById('add-item-form');
+    const itemTypeSelect = document.getElementById('item-type-select');
+    const noteForm = document.getElementById('note-form');
+    const fileForm = document.getElementById('file-form');
+    const memoryForm = document.getElementById('memory-form');
+    const musicForm = document.getElementById('music-form');
 
+    itemTypeSelect.addEventListener('change', (e) => {
+        noteForm.style.display = 'none';
+        fileForm.style.display = 'none';
+        memoryForm.style.display = 'none';
+        musicForm.style.display = 'none';
+
+        switch (e.target.value) {
+            case 'note':
+                noteForm.style.display = 'block';
+                break;
+            case 'file':
+                fileForm.style.display = 'block';
+                break;
+            case 'memory':
+                memoryForm.style.display = 'block';
+                break;
+            case 'music':
+                musicForm.style.display = 'block';
+                break;
+        }
+    });
 }
 
 function renderSection(sectionName, items){
