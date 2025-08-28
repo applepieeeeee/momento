@@ -188,7 +188,7 @@ function renderSelectedCapsule(){
     document.getElementById('add-new-item-btn').addEventListener('click', showModal);
 }
 
-function setupAddItemForm(){
+function initializeModalItemForm(){
     const form = document.getElementById('add-item-form');
     const itemTypeSelect = document.getElementById('item-type-select');
     const noteForm = document.getElementById('note-form');
@@ -229,10 +229,8 @@ function setupAddItemForm(){
                 if (noteContent) {
                     data.content = noteContent;
                     addItemToCapsule(type, data);
-                    document.getElementById('note-text-input').value = '';
                 }
                 break;
-
             case 'file':
                 const fileLink = document.getElementById('file-link-input').value.trim();
                 const fileTitle = document.getElementById('file-title-input').value.trim() || 'untitled file :(';
@@ -241,8 +239,6 @@ function setupAddItemForm(){
                     data.url = fileLink;
                     data.title = fileTitle;
                     addItemToCapsule(type, data);
-                    document.getElementById('file-link-input').value = '';
-                    document.getElementById('file-title-input').value = '';
                 }
                 break;
             case 'memory':
@@ -253,8 +249,6 @@ function setupAddItemForm(){
                     data.url = memoryUrl;
                     data.description = memoryDesc;
                     addItemToCapsule(type, data);
-                    document.getElementById('memory-image-input').value = '';
-                    document.getElementById('memory-description-input').value = '';
                 }
                 break;
             case 'music':
@@ -264,11 +258,10 @@ function setupAddItemForm(){
                     data.url = musicUrl;
                     data.title = musicTitle;
                     addItemToCapsule(type, data);
-                    document.getElementById('music-link-input').value = '';
-                    document.getElementById('music-title-input').value = '';
                 }
                 break;
         }
+        hideModal(); //after u submit
     });
 }
 
@@ -296,7 +289,7 @@ function renderSection(sectionName, items){
                 itemContentHtml = `<div class = "note-card item-card"><h4>note</h4><p>${item.content}</p><div class = "note-action">${editBtnHtml}${deleteBtnHtml}</div></div>`;
                 break;
             case 'filesLinks':
-                itemContentHtml = `<div class="itemcard file-link-item"><span><a href = "${item.url}" target="_blank">${item.title}</a></span>${deleteBtnHtml}</div>`;
+                itemContentHtml = `<div class="item-card file-link-item"><span><a href = "${item.url}" target="_blank">${item.title}</a></span>${deleteBtnHtml}</div>`;
                 break;
             case 'memories':
                 const placeholderUrl = "https://placehold.co/150x150/bdb7b0/ffffff?text=Image";
@@ -311,7 +304,7 @@ function renderSection(sectionName, items){
         }
         return itemContentHtml;
 
-    }).join('') : `<p class = "empty-message"> no ${sectionName} found.</p>`;
+    }).join('') : `<p class = "empty-message"> no ${sectionTitleMap[sectionName]} found.</p>`;
 
     return `
         <div class = "capsule-section">
