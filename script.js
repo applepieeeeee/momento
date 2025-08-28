@@ -35,7 +35,6 @@ function formatDateId(date){
     const year = d.getFullYear();
     const month = (d.getMonth() + 1).toString().padStart(2, '0');
     const day = d.getDate().toString().padStart(2, '0');
-
     return `${year}-${month}-${day}`;
 }
 
@@ -145,12 +144,12 @@ function selectCapsule(capsuleId){
 function renderSelectedCapsule(){
     const capsuleContentDiv = document.getElementById('capsule-content');
     capsuleContentDiv.innerHTML = '';
+    
     const selectedCapsule = capsules.find(c => c.id === currentSelectedCapsuleId);
     const currentSelectedDate = normalizeDateToDay(new Date(currentSelectedCapsuleId));
 
     if (!selectedCapsule){
         capsuleContentDiv.innerHTML = `
-
             <div class="create-capsule-button-wrapper">
                 <p>no capsule found for ${parseDate(currentSelectedDate)}.</p>
                 <button id="create-capsule-for-day-btn" class="create-capsule-button">
@@ -162,7 +161,6 @@ function renderSelectedCapsule(){
         document.getElementById('create-capsule-for-day-btn').addEventListener('click', () => {
             createCapsule(currentSelectedCapsuleId);
         });
-
         return;
     }
 
@@ -171,9 +169,24 @@ function renderSelectedCapsule(){
             <h2>capsule for ${parseDate(currentSelectedDate)}</h2>
             <p>capsule id: ${selectedCapsule.id}</p>
         </div>
-    `;
+    `;  
 
     capsuleContentDiv.insertAdjacentHTML('beforeend', headerHtml);
+
+    capsuleContentDiv.insertAdjacentHTML('beforeend', renderSection('notes', selectedCapsule.notes));
+    capsuleContentDiv.insertAdjacentHTML('beforeend', renderSection('memories', selectedCapsule.memories));
+    capsuleContentDiv.insertAdjacentHTML('beforeend', renderSection('filesLinks', selectedCapsule.filesLinks));
+    capsuleContentDiv.insertAdjacentHTML('beforeend', renderSection('music', selectedCapsule.music));
+
+    capsuleContentDiv.insertAdjacentHTML('beforeend', `
+        <div class = "add-item-to-capsule-button-wrapper">
+            <button id = "add-new-item-btn" class = "add-new-item-button">
+                + add new item 
+            </button>
+        </div>        
+    `);
+
+    document.getElementById('add-new-item-btn').addEventListener('click', showModal);
 }
 
 function renderCapsuleItems(capsule){
