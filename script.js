@@ -13,7 +13,7 @@ const monthNames = ["january", "february", "march", "april", "may",
 
 
 /* unique id to store items*/
-function generateUUID(){
+function generateID(){
     return 'xxxxxxxx-xxxx-4xxx-xxxxxxxxxxxx'.replace(/[xy]/g, function(c){
         var r = Math.random() * 16 | 0,
             v = c == 'x' ? r : (r & 0x3 | 0x8);
@@ -395,7 +395,7 @@ function addItemToCapsule(type, data){
     const capsule = capsules.find(c => c.id === currentSelectedCapsuleId);
     if (!capsule) return;
 
-    data.id = generateUUID();
+    data.id = generateID();
 
     switch(type){
         case 'note':
