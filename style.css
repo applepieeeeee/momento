@@ -17,14 +17,16 @@
 body{
     font-family: var(--font1);
     color: var(--navy);
+    background-color: var(--navy);
 
     margin: 0;
     padding: 0;
     min-height: 100vh; 
     
-    background-color: var(--cream);
     display: flex;
     flex-direction: column;
+    
+    cursor: url("assets/cursor.ico"), auto;
 }
 
 .app-layout{
@@ -102,7 +104,7 @@ body{
 
     border: 0px;
     background: none;
-    cursor: pointer;
+    cursor: url("assets/cursor.ico"), pointer;
 }
 
 .calendar-navigation button:hover{
@@ -164,7 +166,7 @@ body{
     align-items:center;
     justify-content: center;
 
-    cursor: pointer;
+    cursor: url("assets/cursor.ico"), pointer;
     flex-grow: 1;
 }
 
@@ -284,7 +286,7 @@ body{
 
     transition: all 0.3s ease;
     border: none;
-    cursor: pointer;
+    cursor: url("assets/cursor.ico"), pointer;
 }
 
 .create-capsule-button:hover{
@@ -430,7 +432,7 @@ body{
 .action-button{
     background: none;
     border: none;
-    cursor: pointer;
+    cursor: url("assets/cursor.ico"), pointer;
 
     /* delete */
     color: var(--dark-red);
@@ -500,7 +502,7 @@ body{
     font-weight: 500;
 
     border: none;
-    cursor: pointer;
+    cursor: url("assets/cursor.ico"), pointer;
 }
 
 .add-item-button:hover{
@@ -569,7 +571,7 @@ body{
     border: none;
     
     font-size: 20px;
-    cursor: pointer;
+    cursor: url("assets/cursor.ico"), pointer;
     color: var(--navy);
 }
 
