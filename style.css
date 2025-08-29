@@ -615,6 +615,9 @@ body{
 .confetti-piece:nth-child(2n+1){
     background-color: var(--dark-red);
 }
+.confetti-piece:nth-child(2n+1){
+    background-color: var(--light-cream);
+}
 
 @keyframes confetti-fall{
     0%{
