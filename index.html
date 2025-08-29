@@ -193,15 +193,15 @@
             }
 
             .calendar-day-cell:not(.dimmed):hover{
-                background-color: rgba(255,255,255,0.2);
+                background-color: rgba(255, 255, 255, 0.2);
             }
 
             .calendar-day-cell.has-capsule{
-                background-color: var(--cherry-red);
+                background-color: rgb(195, 166, 146);
             }
 
             .calendar-day-cell.has-capsule:hover{
-                background-color: var(--dark-red);;
+                background-color: rgb(164, 128, 105);
             }
 
             .calendar-day-cell.selected-day{
@@ -211,7 +211,7 @@
             }
 
             .calendar-day-cell.selected-day:hover{
-                background-color: var(--dark-red);
+                background-color: rgb(3, 18, 55);
             }
 
             .right-panel{
@@ -221,7 +221,7 @@
                 padding: 32px;
 
                 background-color: #fbf4ef;
-                border-radius: 12px;
+                border-radius: 30px;
                 flex-grow: 1;
             }
 
@@ -234,8 +234,8 @@
 
             .search-input{
                 flex-grow: 1;
-                padding: 12px;
-                border-radius: 12px;
+                padding: 20px;
+                border-radius: 30px;
                 border: none;
 
                 transition: all 0.2s ease;
@@ -263,7 +263,7 @@
                 overflow-y: auto;
                 padding: 20px;
                 background-color: rgb(234, 222, 217);
-                border-radius: 8px;
+                border-radius: 30px;
             }
 
             .capsule-content p.placeholder{
@@ -296,7 +296,7 @@
                 background-color: var(--cherry-red);
                 color: var(--white);
                 padding: 12px 24px;
-                border-radius: 3000px;
+                border-radius: 5000px;
 
                 font-weight: 600;
                 font-size: 19px;
@@ -334,7 +334,7 @@
 
             .capsule-section{
                 background-color: rgb(235, 232, 231);
-                border-radius: 8px;
+                border-radius: 20px;
                 padding: 20px;
                 border: none;
             }
@@ -364,13 +364,13 @@
                 align-items: center;
                 background-color: var(--light-cream);
                 padding: 12px;
-                border-radius: 8px;
+                border-radius: 10px;
                 border: none;
             }
 
             /* diff capsule items */
-
             .note-card{
+                display: flex;
                 flex-direction: column;
                 align-items: flex-start;
                 background-color: #fcf9f5;
