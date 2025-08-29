@@ -607,6 +607,7 @@ body{
 
     opacity: 0;
     animation: confetti-fall 2.5s ease-out forwards;
+    transform: translateX(-500px);
 }
 
 .confetti-piece:nth-child(2n){

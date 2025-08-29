@@ -360,7 +360,7 @@ function conf(){
 
     setTimeout(() => {
         container.innerHTML = '';
-    }, 4000);
+    }, 6000);
 }
 
 function showModal(){
