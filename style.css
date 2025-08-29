@@ -200,8 +200,9 @@ body{
 .right-panel{
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    gap: 10px;
     padding: 30px;
+    max-height: 100vh;
 
     border-radius: 30px;
     flex-grow: 1;
@@ -217,9 +218,9 @@ body{
 .search-input{
     flex-grow: 1;
     padding: 16px;
-    border-radius: 30px;
+    border-radius: 25px;
     border: none;
-
+    
     transition: all 0.2s ease;
     color: var(--navy);
     background-color: #fff;
