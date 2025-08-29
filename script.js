@@ -109,6 +109,7 @@ function renderCalendar(){
 
 function handleDayClick(timestamp){
     const clickedDate = new Date(timestamp);
+    clickedDate.setMinutes(clickedDate.getMinutes() + clickedDate.getTimezoneOffset());
     const normalizedClickedDate = normalizeDateToDay(clickedDate);
     
     currentSelectedCapsuleId = formatDateId(normalizedClickedDate);
