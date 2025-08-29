@@ -343,24 +343,6 @@ function createCapsule(currentDayId){
     saveCapsules();
     selectCapsule(newCapsule.id);
 
-    conf();
-}
-
-function conf(){
-    const container = document.getElementById('confetti-container');
-
-    for (let i = 0; i < 40; i++){
-        const confetti = document.createElement('div');
-        confetti.classList.add('confetti-piece');
-
-        confetti.style.left = `${Math.random() * 100}vw`;
-        confetti.style.animationDelay = `${Math.random() * 0.6}s`;
-        container.appendChild(confetti);
-    }
-
-    setTimeout(() => {
-        container.innerHTML = '';
-    }, 6000);
 }
 
 function showModal(){
