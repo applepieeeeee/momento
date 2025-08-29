@@ -1,6 +1,3 @@
-
-/* hi there */
-
 /* vars */
 const LOCAL_STORAGE_KEY = 'momentoCapsules';
 let capsules = [];
@@ -44,7 +41,7 @@ function normalizeDateToDay(date){
     return d;
 }
 
-/* local storage 4 capsules */
+/* local storage for capsules */
 function loadCapsules(){
     const data = localStorage.getItem(LOCAL_STORAGE_KEY);
     capsules = data ? JSON.parse(data) : [];
@@ -56,7 +53,7 @@ function saveCapsules(){
 }
 
 /*
-goalssss: 
+goals:  
 update the date display
 calc start + end dates
 creates div elements for each day
@@ -328,7 +325,7 @@ function createCapsule(currentDayId){
     const dayReadable = parseDate(new Date(currentDayId));
 
     if (capsules.some(c => c.id === currentDayId)){
-        console.warn(`a capsule for ${dayReadable} alr exists`);
+        console.warn(`a capsule for ${dayReadable} already exists`);
         selectCapsule(currentDayId);
         return;
     }
@@ -410,7 +407,7 @@ function editItem(capsuleId, section, itemId){
     const itemToEdit = capsule[section].find(item => item.id === itemId);
     if (!itemToEdit) return;
 
-    const newContent = prompt("edit ur note", itemToEdit.content);
+    const newContent = prompt("edit your note", itemToEdit.content);
     if (newContent !== null){
         itemToEdit.content = newContent;
         saveCapsules();
@@ -468,6 +465,6 @@ document.addEventListener('DOMContentLoaded', () => {
         renderSelectedCapsule();
     } else {
         const capsuleContentDiv = document.getElementById('capsule-content');
-        capsuleContentDiv.innerHTML = `<p class = "placeholder"> select a calendar date to view its capsule :D </p>`;
+        capsuleContentDiv.innerHTML = `<p class = "placeholder"> select a calendar date to view its capsule </p>`;
     }
 });
