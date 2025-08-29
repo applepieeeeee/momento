@@ -347,7 +347,11 @@ function createCapsule(currentDayId){
 }
 
 function conf(){
-    
+    const container = document.getElementById('confetti-container');
+
+    for (int i = 0; i < 40; i++){
+        const confetti = document.createElement('div');
+    }
 }
 
 function showModal(){
