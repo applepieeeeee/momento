@@ -522,6 +522,23 @@ body{
     border-radius: 10px;
 }
 
+.add-new-item-button{
+    background-color: var(--navy);
+    color: var(--light-cream);
+    padding: 12px 24px;
+
+    border: none;
+    border-radius: 10px;
+    font-weight: 500;
+    font-size: 20px;
+    font-family: var(--font1);
+    cursor: url("assets/cursor.ico"), pointer;
+}
+
+.add-new-item-button:hover{
+    transform: translateY(-3px);
+}
+
 .modal-overlay{
     position: fixed;
     top: 0;
