@@ -180,11 +180,11 @@ body{
 }
 
 .calendar-day-cell.has-capsule{
-    background-color: rgb(195, 166, 146);
+    background-color: rgb(196, 180, 170);
 }
 
 .calendar-day-cell.has-capsule:hover{
-    background-color: rgb(164, 128, 105);
+    background-color: rgb(179, 165, 156);
 }
 
 .calendar-day-cell.selected-day{
