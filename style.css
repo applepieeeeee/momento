@@ -1,10 +1,7 @@
+
 /* vars */
 :root{
     --font1: "Gaegu", cursive;
-
-    /* --bg-color: #f5ebe0;
-    --text-color: #003049;
-    --panel-bg-color: #669bbc; */
 
     --cream: #042452cd;
     --light-cream: #f9f4e9;
@@ -70,7 +67,7 @@ body{
     padding: 20px;
     background-color: #f5f1eee8;
 
-    border-radius: 15px;
+    border-radius: 30px;
 }
 
 .app-title{
@@ -156,7 +153,7 @@ body{
 }
 
 .calendar-day-cell{
-    padding:8px;
+    padding: 8px;
     border-radius: 8px;
 
     font-weight: 900;
@@ -202,7 +199,7 @@ body{
     display: flex;
     flex-direction: column;
     gap: 24px;
-    padding: 32px;
+    padding: 30px;
 
     border-radius: 30px;
     flex-grow: 1;
@@ -217,7 +214,7 @@ body{
 
 .search-input{
     flex-grow: 1;
-    padding: 20px;
+    padding: 16px;
     border-radius: 30px;
     border: none;
 
@@ -276,7 +273,7 @@ body{
 }
 
 .create-capsule-button{
-    background-color: var(--cherry-red);
+    background-color: var(--navy);
     color: var(--white);
     padding: 12px 24px;
     border-radius: 5000px;
