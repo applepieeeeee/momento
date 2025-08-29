@@ -446,3 +446,20 @@ document.getElementById('close-modal-btn').addEventListener('click', hideModal);
 document.getElementById('item-modal').addEventListener('click', (e) => {
     if (e.target === e.currentTarget) hideModal();
 });
+
+
+// on loaddd
+document.addEventListener('DOMContentLoaded', () => {
+    loadCapsules();
+    renderCalendar();
+    initializeModalItemForm();
+
+    if (capsules.length > 0){
+        currentSelectedCapsuleId = capsules[0].id;
+        renderCalendar();
+        renderSelectedCapsule();
+    } else {
+        const capsuleContentDiv = document.getElementById('capsule-content');
+        capsuleContentDiv.innerHTML = `<p class = "placeholder"> select a calendar date to view its capsule :D </p>`;
+    }
+});
