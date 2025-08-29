@@ -342,6 +342,12 @@ function createCapsule(currentDayId){
     capsules.push(newCapsule);
     saveCapsules();
     selectCapsule(newCapsule.id);
+
+    conf();
+}
+
+function conf(){
+    
 }
 
 function showModal(){
