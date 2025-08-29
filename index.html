@@ -257,7 +257,7 @@
             .capsule-content p.placeholder{
                 color: #78716c;
                 text-align: center;
-                font-size: 30px;
+                font-size: 40px;
                 margin-top: 40px;
             }
 
@@ -288,7 +288,7 @@
 
                 font-weight: 600;
                 font-size: 19px;
-                font-family: 'Gaegu', cursive;
+                font-family: var(--font1);
 
                 transition: all 0.3s ease;
                 border: none;
@@ -438,7 +438,7 @@
                 cursor: pointer;
 
                 /* delete */
-                color: #d32f2f; 
+                color: #aa1313; 
                 padding: 4px;
                 border-radius: 2000px;
                 transition: all 0.2s ease;
@@ -446,16 +446,16 @@
             }
             
             .action-button.edit{
-                color: #a7e0f7;
+                color: #ffffff;
             }
             .action-button.edit:hover{
-                color: #a7e0f7;
-                background-color: #d5e8f5;
+                color: #ffffff;
+                background-color: #6e0c0c;
             }
 
             .action-button:hover{
-                color: #266fdc;
-                background-color: #22579c;
+                color: #ffffff;
+                background-color: #590303;
             }
 
             .action-button svg{
@@ -485,6 +485,7 @@
                 border: 1px solid #dbe4ee;
 
                 font-size: 14px;
+                font-family: var(--font1);
                 background-color: #fff;
                 color: #292524;
 
@@ -492,7 +493,7 @@
             }
 
             .add-item-button{
-                background-color: #b8c4d1;
+                background-color: #800c0c;
                 color: #fff;
 
                 padding: 8px;
@@ -508,7 +509,7 @@
             }
 
             .add-item-button:hover{
-                background-color: #8597a8;
+                background-color: #430303;
             }
 
             .add-item-form.row-gap.add-item-button{
@@ -531,12 +532,12 @@
 
             .modal-content{
                 background-color: var(--panel-bg-color);
-                padding: 30px;
-                border-radius: 12px;
-                max-width: 500px;
-                width: 90%;
+                padding: 40px;
+                border-radius: 30px;
 
-                box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+                max-width: 700px;
+                max-height: 600px;
+                width: 90%;
 
                 display: flex;
                 flex-direction: column;
@@ -548,7 +549,7 @@
                 background: none;
                 border: none;
                 
-                font-size: 24px;
+                font-size: 30px;
                 cursor: pointer;
                 color: var(--text-color);
             }
