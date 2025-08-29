@@ -240,23 +240,6 @@ body{
     border: var(--navy);
 }
 
-.clear-search-button{
-    background-color: rgba(255, 255, 255, 0);
-    border: none;
-    color: var(--muted-text);
-    font-size: 24px;
-    cursor: url("assets/cursor.ico"), pointer;
-    
-    padding: 0;
-}
-
-.clear-search-button:hover{
-    color: var(--navy);
-}
-
-
-
-
 .capsule-content{
     display: flex;
     flex-direction: column;
