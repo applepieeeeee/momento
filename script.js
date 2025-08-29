@@ -354,7 +354,6 @@ function showModal(){
 function hideModal(){
     const modal = document.getElementById('item-modal');
     modal.style.display = 'none';
-
     document.getElementById('add-item-form').reset();
 }
 
@@ -378,7 +377,6 @@ function addItemToCapsule(type, data){
             capsule.music.push(data);
             break;
     }
-
     saveCapsules();
     renderSelectedCapsule();
 }
@@ -444,66 +442,7 @@ searchInput.addEventListener('input', (e) => {
     }
 });
 
-const itemTypeSelect = document.getElementById('item-type-select');
-const noteForm = document.getElementById('note-form');
-const fileForm = document.getElementById('file-form');
-const memoryForm = document.getElementById('memory-form');
-const musicForm = document.getElementById('music-form');
-
-itemTypeSelect.addEventListener('change', (e) => {
-    noteForm.style.display = 'none';
-    fileForm.style.display = 'none';
-    memoryForm.style.display = 'none';
-
-    switch(e.target.value){
-        case 'note':
-            noteForm.style.display = 'block';
-            break;
-        case 'file':
-            fileForm.style.display = 'block';
-            break;
-        case 'memory':
-            memoryForm.style.display = 'block';
-            break;
-        case 'music':
-            musicForm.style.display = 'block';
-            break;
-    }
-});
-
-document.getElementById('add-item-form').addEventListener('submit', (e) => {
-    e.preventDefault();
-    const type = itemTypeSelect.value;
-    let data = {};
-
-    switch(type){
-        case 'note':
-            data.content = document.getElementById('note-text-input').value;
-            if (data.content) addItemToCapsule('note', data);
-            break;
-
-        case 'file':
-            data.url = document.getElementById('file-link-input').value;
-            data.title = document.getElementById('file-title-input').value;
-            if (data.url && data.title) addItemToCapsule('file', data);
-            break;
-        case 'memory':
-            data.url = document.getElementById('memory-image-input').value;
-            data.description = document.getElementById('memory-description-input').value;
-            if (data.url && data.description) addItemToCapsule('memory', data);
-            break;
-        case 'music':
-            data.url = document.getElementById('music-link-input').value;
-            data.title = document.getElementById('music-title-input').value;
-            if (data.url && data.title) addItemToCapsule('music', data);
-            break;
-    }
-    hideModal();
-});
-
 document.getElementById('close-modal-btn').addEventListener('click', hideModal);
 document.getElementById('item-modal').addEventListener('click', (e) => {
-    if (e.target === e.currentTarget){
-        hideModal();
-    }
+    if (e.target === e.currentTarget) hideModal();
 });
