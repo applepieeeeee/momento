@@ -420,6 +420,13 @@ const searchInput = document.getElementById('search-input');
 searchInput.addEventListener('input', (e) => {
     const searchTerm = e.target.value.toLowerCase();
 
+    if (searchTerm.length > 0){
+        clearSearchBtn.style.display = 'block';
+    } else {
+
+        clearSearchBtn.style.display = 'none';
+    }
+
     if (searchTerm.length == 0){
         renderCalendar();
         renderSelectedCapsule();
@@ -446,6 +453,10 @@ searchInput.addEventListener('input', (e) => {
         currentSelectedCapsuleId = null;
     }
 });
+
+clearSearchBtn.addEventListener('click', () => {
+    
+})
 
 document.getElementById('close-modal-btn').addEventListener('click', hideModal);
 document.getElementById('item-modal').addEventListener('click', (e) => {

@@ -11,7 +11,7 @@
     --darkest-red: #560606;
     --white: #FFF;
     --light-white: #F5F5F5;
-    --muted-text: #767474;
+    --muted-text: #757373da;
 }
 
 body{
@@ -197,6 +197,11 @@ body{
     background-color: rgb(3, 18, 55);
 }
 
+
+
+
+/* right */
+
 .right-panel{
     display: flex;
     flex-direction: column;
@@ -234,6 +239,23 @@ body{
     box-shadow: 0 0 0 2px rgba(0,0,0,0.5);
     border: var(--navy);
 }
+
+.clear-search-button{
+    background-color: rgba(255, 255, 255, 0);
+    border: none;
+    color: var(--muted-text);
+    font-size: 24px;
+    cursor: url("assets/cursor.ico"), pointer;
+    
+    padding: 0;
+}
+
+.clear-search-button:hover{
+    color: var(--navy);
+}
+
+
+
 
 .capsule-content{
     display: flex;
