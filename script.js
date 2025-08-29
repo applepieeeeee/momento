@@ -147,7 +147,14 @@ function renderSelectedCapsule(){
     capsuleContentDiv.innerHTML = '';
     
     const selectedCapsule = capsules.find(c => c.id === currentSelectedCapsuleId);
-    const currentSelectedDate = normalizeDateToDay(new Date(currentSelectedCapsuleId));
+    let currentSelectedDate;
+    if(currentSelectedCapsuleId){
+        const parts = currentSelectedCapsuleId.split('-').map(Number);
+        currentSelectedDate = new Date(parts[0], parts[1]-1, parts[2]);
+    } else {
+        capsuleContentDiv.innerHTML = `<p class = "placeholder"> select a calendar date to view its capsule :D</p>`;
+        return;
+    }
 
     if (!selectedCapsule){
         capsuleContentDiv.innerHTML = `
