@@ -357,7 +357,10 @@ function conf(){
         confetti.style.animationDelay = `${Math.random() * 0.6}s`;
         container.appendChild(confetti);
     }
-    
+
+    setTimeout(() => {
+        container.innerHTML = '';
+    }, 4000);
 }
 
 function showModal(){
