@@ -387,6 +387,10 @@ body{
     padding: 5px;
 }
 
+.close-modal-btn:hover{
+    color: #010925;
+}
+
 .footer{
     text-align: center;
     font-size: 18px;
