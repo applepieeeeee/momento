@@ -457,3 +457,31 @@ body{
 .footer:hover{
     transform: translateY(-4px);
 }
+
+
+
+
+
+.capsule-item-image{
+
+}
+
+.capsule-item-audio{
+
+}
+
+.capsule-item-file a{
+
+}
+
+.capsule-item-file a:hover{
+
+}
+
+#file-upload-form{
+
+}
+
+#file-upload-form input[type="file"]{
+    
+}
