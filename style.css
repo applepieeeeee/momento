@@ -18,14 +18,11 @@ body{
     font-family: var(--font1);
     color: var(--navy);
     background-color: var(--navy);
-
     margin: 0;
     padding: 0;
     min-height: 100vh; 
-    
     display: flex;
     flex-direction: column;
-    
     cursor: url("assets/cursor.ico"), auto;
 }
 
@@ -33,7 +30,6 @@ body{
     display: flex;
     flex-grow: 1;
     flex-direction: column;
-
     gap: 20px;
     padding: 20px;
 }
@@ -64,11 +60,9 @@ body{
     flex-direction: column;
     flex-basis: 33.333333333%;
     flex-shrink: 0;
-
     gap: 15px;
     padding: 20px;
     background-color: #f5f1eee8;
-
     border-radius: 30px;
 }
 
@@ -92,7 +86,6 @@ body{
     justify-content: space-between;
     align-items: center;
     background-color: rgba(255, 255, 255, 0.675);
-
     padding: 12px;
     border-radius: 8px;
     margin-bottom: 16px;
@@ -101,7 +94,6 @@ body{
 .calendar-navigation button{
     padding: 8px;
     border-radius: 3000px;
-
     border: 0px;
     background: none;
     cursor: url("assets/cursor.ico"), pointer;
@@ -225,11 +217,9 @@ body{
     padding: 16px;
     border-radius: 25px;
     border: none;
-    
     transition: all 0.2s ease;
     color: var(--navy);
     background-color: #fff;
-
     font-family: var(--font1);
     font-size: 22px;
 }
@@ -266,11 +256,9 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     height: 100%;
     padding: 16px;
     text-align: center;
-
     font-family: 'Gaegu', cursive;
 }
 
@@ -285,11 +273,9 @@ body{
     color: var(--white);
     padding: 12px 24px;
     border-radius: 5000px;
-
     font-weight: 600;
     font-size: 19px;
     font-family: var(--font1);
-
     transition: all 0.3s ease;
     border: none;
     cursor: url("assets/cursor.ico"), pointer;
@@ -415,10 +401,8 @@ body{
 .memory-item img{
     max-width: 100%;
     height: auto;
-
     border-radius: 8px;
     margin-bottom: 8px;
-
     object-fit: cover;
     max-height: 150px;
     border: 1px solid var(--light-cream);
