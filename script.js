@@ -416,6 +416,27 @@ function editItem(capsuleId, section, itemId){
     }
 }
 
+document.getElementById('add-item-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const itemType = document.getElementById('item-type-select').value;
+    let data = {};
+
+    if (itemType === 'note'){
+        const text = document.getElementById('note-text-input').value;
+        if(text) data = {type: 'note', content: text};
+    } else if (itemType === 'file'){
+        const fileInput = document.getElementById('file-upload-input');
+        const title = document.getElementById('file-title-input').value;
+
+        if (fileInput.files.length > 0){
+            const file = fileInput.files[0];
+            const base64 = await toBase64(file);
+            data = {type: 'file', title: title, content: base64, filename: file.name, filetype: file.type};
+        }
+    }
+});
+
 /* search func */
 const searchInput = document.getElementById('search-input');
 searchInput.addEventListener('input', (e) => {
