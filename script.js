@@ -24,7 +24,7 @@ function toBase64(file){
         reader.readAsDataURL(file);
         reader.onload = () => resolve(reader.result);
         reader.onerror = error => reject(error);
-    })
+    });
 }
 
 /* all date function lol*/ 
