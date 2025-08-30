@@ -129,6 +129,21 @@ function renderSelectedCapsule(){
     addBtn.style.display = 'block';
 
     const capsule = getCapsuleForDate(selectedDate);
+    if (capsule && capsule.items && capsule.items.length > 0){
+        capsuleContentDiv.classList.remove('empty-state');
+        capsule.items.forEach(item => {
+            const itemDiv = document.createElement('div');
+            itemDiv.classList.add('capsule-item');
+            itemDiv.dataset.itemId = item.id;
+
+            const deleteBtn = document.createElement('button');
+            deleteBtn.classList.add('delete-btn');
+            deleteBtn.innerHTML = '&times;';
+            deleteBtn.addEventListener('click', () => deleteItem(capsule.id, item.id));
+
+            
+        });
+    }
 }
 
 /* update calendar when buttons press */
