@@ -1,3 +1,4 @@
+/* ------------ STYLE ------------ */
 
 /* vars */
 :root{
@@ -52,11 +53,11 @@ body{
 }
 
 .left-panel{
-    flex: 1;
+    flex: 0.9;
     display: flex;
     flex-direction: column;
 
-    background-color: #f5f1eee8;
+    background-color: rgba(245, 241, 238, 0.9);
     color: var(--navy);
 
     gap: 20px;
