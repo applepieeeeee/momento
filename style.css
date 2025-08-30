@@ -267,6 +267,37 @@ body{
     padding: 3px;
 }
 
+.capsule-item .delete-btn:hover{
+    color: var(--dark-red);
+}
+
+.capsule-item h4{
+    margin-top: 0;
+}
+.capsule-item p{
+    margin: 0;
+    white-space: pre-wrap;
+}
+
+.capsule-item-image, .capsule-item-video, .capsule-item-file{
+    display: block;
+    max-width: 100%;
+    height: auto;
+    border-radius: 8px;
+    margin-top: 10px;
+}
+
+.capsule-item-music-link{
+    color: var(--navy);
+    text-decoration: none;
+    font-weight: bold;
+    display: block;
+    margin-top: 10px;
+}
+
+.capsule-item-music-link:hover{
+    text-decoration: underline; 
+}
 
 /* all the capsule stufff */
 .section-items-list{
