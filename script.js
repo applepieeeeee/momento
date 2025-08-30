@@ -424,7 +424,10 @@ document.getElementById('add-item-form').addEventListener('submit', async (e) =>
 
     if (itemType === 'note'){
         const text = document.getElementById('note-text-input').value;
-        if(text) data = {type: 'note', content: text};
+        if(text) data = {
+            type: 'note',
+            content: text
+        };
     } else if (itemType === 'file'){
         const fileInput = document.getElementById('file-upload-input');
         const title = document.getElementById('file-title-input').value;
@@ -432,7 +435,39 @@ document.getElementById('add-item-form').addEventListener('submit', async (e) =>
         if (fileInput.files.length > 0){
             const file = fileInput.files[0];
             const base64 = await toBase64(file);
-            data = {type: 'file', title: title, content: base64, filename: file.name, filetype: file.type};
+            data = {
+                type: 'file',
+                title: title,
+                content: base64,
+                filename: file.name,
+                filetype: file.type
+            };
+        }
+    } else if (itemType == 'memory'){
+        const image = document.getElementById('memory-image-upload');
+        const desc = document.getElementById('memory-description-input').value;
+
+        if (image.files.length > 0 && desc){
+            const file = image.files[0];
+            const base64 = await toBase64(file);
+
+            data = {
+                type: 'memory',
+                description: desc,
+                content: base64,
+                filename: file.name,
+                filetype: file.type
+            };
+        }
+    } else if (itemType === 'music'){
+        const link = document.getElementById('music-link-input').value;
+        const title = doocument.getElementById('music-title-input').value;
+        if (link){
+            data = {
+                type: 'music',
+                link: link,
+                title: title
+            };
         }
     }
 });
