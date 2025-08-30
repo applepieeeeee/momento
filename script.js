@@ -18,15 +18,6 @@ function generateID(){
     });
 }
 
-function toBase64(file){
-    return new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result);
-        reader.onerror = error => reject(error);
-    });
-}
-
 /* all date function lol*/ 
 function parseDate(date){
     return new Intl.DateTimeFormat('en-US', {
@@ -424,62 +415,6 @@ function editItem(capsuleId, section, itemId){
         renderSelectedCapsule();
     }
 }
-
-document.getElementById('add-item-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-
-    const itemType = document.getElementById('item-type-select').value;
-    let data = {};
-
-    if (itemType === 'note'){
-        const text = document.getElementById('note-text-input').value;
-        if(text) data = {
-            type: 'note',
-            content: text
-        };
-    } else if (itemType === 'file'){
-        const fileInput = document.getElementById('file-upload-input');
-        const title = document.getElementById('file-title-input').value;
-
-        if (fileInput.files.length > 0){
-            const file = fileInput.files[0];
-            data = {
-                type: 'file',
-                title: title,
-                content: file,
-                filename: file.name,
-                filetype: file.type
-            };
-        }
-    } else if (itemType == 'memory'){
-        const image = document.getElementById('memory-image-upload');
-        const desc = document.getElementById('memory-description-input').value;
-
-        if (image.files.length > 0 && desc){
-            const file = image.files[0];
-            data = {
-                type: 'memory',
-                description: desc,
-                content: file,
-                filename: file.name,
-                filetype: file.type
-            };
-        }
-    } else if (itemType === 'music'){ 
-        const link = document.getElementById('music-link-input').value;
-        const title = document.getElementById('music-title-input').value;
-        if (link){
-            data = {
-                type: 'music',
-                link: link,
-                title: title
-            };
-        }
-    }
-    if (Object.keys(data).length > 0){
-        console.log('Saving data', data);
-    }
-});
 
 /* search func */
 const searchInput = document.getElementById('search-input');
