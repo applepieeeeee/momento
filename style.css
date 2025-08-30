@@ -395,18 +395,12 @@ body{
 }
 
 .close-modal-btn{
-    position: absolute;
-
-    top: 10px;
-    right: 10px;
-
     background: none;
     border: none;
     font-size: 30px;
     
-    cursor: url("assets/cursor.ico");
-    color: var(--navy); 
-
+    cursor: url("assets/cursor.ico"), pointer;
+    color: var(--navy);
     line-height: 1;
     padding: 5px;
 }
@@ -430,16 +424,26 @@ body{
     flex: 1;
     background-color: var(--cream);
     color: var(--navy);
+
     padding: 10px 15px;
     border-radius: 15px;
 
     font-family: var(--font1);
     font-size: 18.2px;
     cursor: url("assets/cursor.ico");
+    border: 2px solid var(--navy);
 }
 
 .item-type-selector button:hover{
-    transform: scale(1.05);
+    background-color: var(--navy);
+    color: var(--light-cream);
+
+    transform: scale(1.03);
+}
+
+.item-type-selector button.selected{
+    background-color: var(--navy);
+    color: var(--light-cream);
 }
 
 .item-form-group{
