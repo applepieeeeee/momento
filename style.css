@@ -626,12 +626,3 @@ body{
 .footer:hover{
     transform: translateY(-4px);
 }
-
-.user-id-display{
-    font-size: 10px;
-    color: var(--muted-text);
-    margin-top: 2px;
-    word-break: break-all;
-    text-align: center;
-    opacity: 0.8;
-}
