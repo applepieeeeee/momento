@@ -52,18 +52,16 @@ body{
 }
 
 .left-panel{
+    flex: 1;
     display: flex;
     flex-direction: column;
-    flex-basis: 33.333333333%;
-    flex-shrink: 0;
-
-    gap: 15px;
-    padding: 20px;
 
     background-color: #f5f1eee8;
-    border-radius: 30px;
+    color: var(--navy);
 
-    height: 100%;
+    gap: 20px;
+    padding: 30px;
+    border-radius: 20px;
 }
 
 .app-title{
