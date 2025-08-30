@@ -23,6 +23,7 @@
                 <div id = "user-info">
                     <p id = "user-id" class = "user-id-display" style="display: none;"></p>
                 </div>
+                <input type = "text" id = "search-bar" clsas = "search-bar" placeholder = "search back in time...">
 
                 <div class = "calendar-navigation">
                     <button id = "prev-month-btn">
@@ -30,15 +31,20 @@
                              viewBox = "0 0 24 24" stroke = "currentColor" stroke-width = "2">
                             <path stroke-linecap = "round" stroke-linejoin = "round" d = "M15 19l-7-7 7-7" />
                         </svg>
-                    </button> 
+                    </button>
 
-                    <h2 id = "current-month-year" class = "current-month-year"></h2>
+                    <span class = "current-month"></span>
 
                     <button id = "next-month-btn">
                         <svg xmlns = "http://www.w3.org/2000/svg" class = "h-6 w-6" fill = "none" viewBox = "0 0 24 24" stroke = "currentColor" stroke-width = "2">
                             <path stroke-linecap = "round" stroke-linejoin = "round" d = "M9 5l7 7-7 7"></path>
                         </svg>
                     </button>
+                </div>
+
+
+                <div class = "calendar-container">
+                    <div class = "calendar-grid" id = "calendar-grid"></div>
                 </div>
 
                 <div class = "weekday-headers">
