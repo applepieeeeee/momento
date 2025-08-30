@@ -35,6 +35,11 @@ function formatDateId(date){
     return `${year}-${month}-${day}`;
 }
 
+function getCapsuleForDate(date){
+    const dateId = formatDateId(date);
+    return capsules.find(capsule => capsule.id === dateId);
+}
+
 function normalizeDateToDay(date){
     const d = new Date(date);
     d.setHours(0,0,0,0);
