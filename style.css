@@ -380,15 +380,70 @@ body{
     background: none;
     border: none;
     font-size: 30px;
-
+    
     cursor: url("assets/cursor.ico");
-    color: var(--navy);
+    color: var(--navy); 
+
     line-height: 1;
     padding: 5px;
 }
 
 .close-modal-btn:hover{
     color: #010925;
+}
+
+.modal-content h3{
+    margin-top: 0;
+    font-size: 30px;
+}
+
+.item-type-selector{
+    display: flex;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.item-type-selector button{
+    flex: 1;
+    background-color: var(--cream);
+    color: var(--navy);
+    padding: 10px 15px;
+    border-radius: 15px;
+
+    font-family: var(--font1);
+    font-size: 18.2px;
+    cursor: url("assets/cursor.ico");
+}
+
+.item-type-selector button:hover{
+    transform: scale(1.05);
+}
+
+.item-form-group{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.item-form-group input, .item-form-group textarea{
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid var(--muted-text);
+
+    font-family: var(--font1);
+    font-size: 18.2px;
+    background-color: var(--light-cream);
+    color: var(--navy);
+}
+
+.item-form-group input::placeholder, .item-form-group textarea::placeholder{
+    color: var(--muted-text);
+}
+
+#note-form textarea, #memory-form textarea{
+    height: 100px;
+    resize: vertical;
 }
 
 .footer{
