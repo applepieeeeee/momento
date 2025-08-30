@@ -553,7 +553,7 @@ body{
     font-size: 18px;
 }
 
-.modal-close{
+.modal-close, .close-modal-btn{
     align-self: flex-end;
     background: none;
     border: none;
@@ -561,6 +561,13 @@ body{
     font-size: 20px;
     cursor: url("assets/cursor.ico"), pointer;
     color: var(--navy);
+
+    line-height: 1;
+    padding: 0;
+}
+
+.modal-close:hover, .close-modal-btn:hover{
+    color: #000e35;
 }
 
 .footer{
