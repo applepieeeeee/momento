@@ -40,12 +40,6 @@ function getCapsuleForDate(date){
     return capsules.find(capsule => capsule.id === dateId);
 }
 
-// function normalizeDateToDay(date){
-//     const d = new Date(date);
-//     d.setHours(0,0,0,0);
-//     return d;
-// }
-
 /* local storage for capsules */
 function loadCapsules(){
     const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
@@ -133,7 +127,8 @@ function renderSelectedCapsule(){
 
     capsuleHeaderDate.textContent = parseDate(selectedDate);
     addBtn.style.display = 'block';
-    
+
+    const capsule = getCapsuleForDate(selectedDate);
 }
 
 /* update calendar when buttons press */
