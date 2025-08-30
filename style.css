@@ -53,11 +53,11 @@ body{
 }
 
 .left-panel{
-    flex: 0.9;
+    flex: 0.6;
     display: flex;
     flex-direction: column;
 
-    background-color: rgba(245, 241, 238, 0.9);
+    background-color: rgba(255, 248, 243, 0.925);
     color: var(--navy);
 
     gap: 20px;

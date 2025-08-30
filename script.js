@@ -131,7 +131,9 @@ function renderSelectedCapsule(){
         return;
     }
 
-    /* add rest here */
+    capsuleHeaderDate.textContent = parseDate(selectedDate);
+    addBtn.style.display = 'block';
+    
 }
 
 /* update calendar when buttons press */
