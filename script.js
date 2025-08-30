@@ -434,11 +434,10 @@ document.getElementById('add-item-form').addEventListener('submit', async (e) =>
 
         if (fileInput.files.length > 0){
             const file = fileInput.files[0];
-            const base64 = await toBase64(file);
             data = {
                 type: 'file',
                 title: title,
-                content: base64,
+                content: file,
                 filename: file.name,
                 filetype: file.type
             };
@@ -449,19 +448,17 @@ document.getElementById('add-item-form').addEventListener('submit', async (e) =>
 
         if (image.files.length > 0 && desc){
             const file = image.files[0];
-            const base64 = await toBase64(file);
-
             data = {
                 type: 'memory',
                 description: desc,
-                content: base64,
+                content: file,
                 filename: file.name,
                 filetype: file.type
             };
         }
-    } else if (itemType === 'music'){
+    } else if (itemType === 'music'){ 
         const link = document.getElementById('music-link-input').value;
-        const title = doocument.getElementById('music-title-input').value;
+        const title = document.getElementById('music-title-input').value;
         if (link){
             data = {
                 type: 'music',
@@ -469,6 +466,10 @@ document.getElementById('add-item-form').addEventListener('submit', async (e) =>
                 title: title
             };
         }
+    }
+
+    if (Object.keys(data).length > 0){
+        console.log('Saving data', data);
     }
 });
 
