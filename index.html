@@ -20,9 +20,11 @@
                     momento
                     <span class = "app-subtitle"> a digital time capsule </span>
                 </h1>
+
                 <div id = "user-info">
                     <p id = "user-id" class = "user-id-display" style="display: none;"></p>
                 </div>
+
                 <input type = "text" id = "search-bar" clsas = "search-bar" placeholder = "search back in time...">
 
                 <div class = "calendar-navigation">
@@ -62,13 +64,13 @@
             </div>
 
             <div class = "right-panel">
-                <div class = "search-bar">
-                    <input type = "text" id = "search-input" placeholder = "search back in time" class = "search-input">
-                </div>
-
-                <div id = "capsule-content" class = "capsule-content">
+                <div id = "capsule-header-date" class = "capsule-header-date"></div>
+                <div id = "capsule-content" class = "capsule-content empty-state">
                     <p class = "placeholder">select a day on the calendar to view its capsule</p>
                 </div>
+                <button id = "add-new-capsule-btn" class = "add-new-capsule-btn" style = "display: none;">
+                    add new capsule
+                </button>
             </div>
         </div>
 

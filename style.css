@@ -460,6 +460,7 @@ body{
 
     font-family: var(--font1);
     font-size: 18.2px;
+
     background-color: var(--light-cream);
     color: var(--navy);
 }
@@ -484,7 +485,6 @@ body{
 .footer:hover{
     transform: translateY(-4px);
 }
-
 
 
 
