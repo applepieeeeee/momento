@@ -76,44 +76,47 @@
 
         <div id = "item-modal" class = "modal-overlay" style = "display: none;">
             <div class = "modal-content">
-                <button class = "modal-close" id = "close-modal-btn">&times;</button>
+                <div class = "modal-header">
+                    <h3>choose media type</h3>
+                    <button class = "class-modal-btn" id = "close-modal-btn">&times;</button>
+                </div>
+
+                <div class = "item-type-selector" id = "item-type-selector">
+                    <button type = "button" data-type = "note">note</button>
+                    <button type = "button" data-type = "file">file</button>
+                    <button type = "button" data-type = "memory">memory</button>
+                    <button type = "button" data-type = "music">music</button>
+                </div>
+
                 <form id = "add-item-form" class = "add-item-form">
-                    <select id = "item-type-select">
-                        <option value = "note">note</option>
-                        <option value = "file">file</option>
-                        <option value = "memory">memory</option>
-                        <option value = "music">music</option>
-                    </select>
-
                     <div id = "note-form" class = "item-form-group">
-                        <textarea id = "note-text-input" placeholder = "what do you want to remember?" rows = "4"></textarea>
+                        <textarea id = "note-text-input" placeholder="what do you want to remember?" rows="4"></textarea>
                     </div>
 
-                    <div id = "file-form" class = "item-form-group" style = "display:none;">
-                        <label for = "file-upload-input"> upload file: </label>
+                    <div id="file-form" class="item-form-group" style="display:none;">
+                        <label for = "file-upload-input">upload file: </label>
                         <input type = "file" id = "file-upload-input">
-
-                        <br> 
-                        <label for = "file-link-input"> or use a link: </label>
-                        <input type = "text" id = "file-link-input" placeholder = "enter a file url or a link">
-                        <input type = "text" id = "file-title-input" placeholder = "enter a file title">
+                        <br>
+                        <label for="file-link-input"> or use a link: </label>
+                        <input type = "text" id = "file-link-input" placeholder="enter a file url">
+                        <input type = "text" id = "file-title-input" placeholder="enter a file title">
                     </div>
 
-                    <div id = "memory-form" class = "item-form-group" style = "display:none;">
-                        <input type = "text" id = "memory-image-input" placeholder = "enter an image url">
+                    <div id="memory-form" class="item-form-group" style="display:none;">
+                        <input type = "text" id = "memory-image-input" placeholder="enter an image url">
                         <input type = "text" id = "memory-description-input" placeholder = "a short description">
                     </div>
 
-                    <div id = "music-form" class = "item-form-group" style = "display:none;">
-                        <input type = "text" id = "music-link-input" placeholder = "enter music url">
-                        <input type = "text" id = "music-title-input" placeholder = "song title or desc">
+                    <div id = "music-form" class = "item-form-group" style="display:none;">
+                        <input type = "text" id = "music-link-input" placeholder="enter music url">
+                        <input type = "text" id = "music-title-input" placeholder="song title or desc">
                     </div>
 
-                    <button typ = "submit" class = "add-new-item-button"> add item to capsule </button>
+                    <button type = "submit" class="add-new-item-button">add item to capsule</button>
                 </form>
             </div>
         </div>
- 
+
         <div id = "edit-note-modal" class = "modal-overlay" style = "display: none;">
             <div class = "modal-content">
                 <button id = "close-edit-modal-btn" class = "close-modal-btn">&times;</button>
