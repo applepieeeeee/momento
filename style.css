@@ -299,6 +299,13 @@ body{
     text-decoration: underline; 
 }
 
+.placeholder{
+    text-align: center;
+    font-size: 20px;
+    color: var(--muted-text);
+    margin: auto;
+}
+
 /* all the capsule stufff */
 .section-items-list{
     display: flex;
