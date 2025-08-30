@@ -351,7 +351,7 @@ body{
     display: flex;
     flex-direction: column;
     align-items: flex-start;
-    background-color: #fcf9f5;
+    background-color: rgb(234, 222, 217);
     color: var(--navy);
 }
 
@@ -470,11 +470,11 @@ body{
 .add-item-form input[type = "text"],
 .add-item-form textarea,
 .add-item-form select{
-    padding: 8px;
+    padding: 4px;
     border-radius: 8px;
     border: 1px solid var(--light-cream);
 
-    font-size: 14px;
+    font-size: 10px;
     font-family: var(--font1);
     background-color: var(--light-cream);
     color: var(--navy);
@@ -485,8 +485,7 @@ body{
 .add-item-to-capsule-button-wrapper{
     display: flex;
     justify-content: center;
-    padding-top: 20px;
-
+    padding-top: 30px;
     border-radius: 10px;
 }
 
@@ -495,6 +494,7 @@ body{
     color: var(--light-cream);
     padding: 12px 24px;
     margin-bottom: 5px;
+    margin-top: 20px;
 
     border: none;
     border-radius: 10px;
@@ -523,7 +523,7 @@ body{
     align-items: center;
     z-index: 1000;
 
-    font-size: 30px;
+    font-size: 22px;
 }
 
 .modal-content{
@@ -542,15 +542,18 @@ body{
 
 .modal-content input[type = "text"],
 .modal-content select{
-    font-size: 20px;
+    font-size: 22px;
+    padding: 5px;
+    margin-bottom: 5px;
+    margin-top: 10px;
 }
 
 .modal-content textarea{
-    font-size: 18px;
+    font-size: 22px;
 }
 
 .modal-content .add-item-button{
-    font-size: 18px;
+    font-size: 23px;
 }
 
 .modal-close, .close-modal-btn{
@@ -558,7 +561,7 @@ body{
     background: none;
     border: none;
     
-    font-size: 20px;
+    font-size: 25px;
     cursor: url("assets/cursor.ico"), pointer;
     color: var(--navy);
 
@@ -568,6 +571,51 @@ body{
 
 .modal-close:hover, .close-modal-btn:hover{
     color: #000e35;
+}
+
+#edit-note-form-element{
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 16px;
+}
+
+#edit-note-text-input{
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid var(--muted-text);
+
+    font-size: 20px;
+    font-family: var(--font1);
+
+    background-color: var(--light-cream);
+    color: var(--navy);
+    
+    resize: vertical;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#edit-note-save-btn{
+    background-color: var(--navy);
+    color: var(--light-cream);
+
+    padding: 12px 24px;
+    border: none;
+    border-radius: 20px;
+
+    font-weight: 500;
+    font-size: 20px;
+    font-family: var(--font1);
+
+    cursor: url("assets/cursor.ico"), pointer;
+    align-self: center;
+    width: 100%;
+}
+
+#edit-note-save-btn:hover{
+    background-color: #010725;
+    transform: translateY(-3px);
 }
 
 .footer{
