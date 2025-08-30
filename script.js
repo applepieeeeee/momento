@@ -40,17 +40,20 @@ function getCapsuleForDate(date){
     return capsules.find(capsule => capsule.id === dateId);
 }
 
-function normalizeDateToDay(date){
-    const d = new Date(date);
-    d.setHours(0,0,0,0);
-    return d;
-}
+// function normalizeDateToDay(date){
+//     const d = new Date(date);
+//     d.setHours(0,0,0,0);
+//     return d;
+// }
 
 /* local storage for capsules */
 function loadCapsules(){
-    const data = localStorage.getItem(LOCAL_STORAGE_KEY);
-    capsules = data ? JSON.parse(data) : [];
-    capsules.sort((a,b) => b.id.localeCompare(a.id));
+    const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
+    if(stored){
+        capsules = JSON.parse(storedCapsules);
+    } else {
+        capsules = [];
+    }
 }
 
 function saveCapsules(){
@@ -69,40 +72,39 @@ check if capsule exists for each day
 function renderCalendar(){
     const calendarGrid = document.getElementById('calendar-grid');
     calendarGrid.innerHTML = '';
-    document.getElementById('current-month-year').textContent = `${monthNames[currentMonth]} ${currentYear}`;
     
-    const firstDay = new Date(currentYear, currentMonth, 1);
-    let startDayIndex = firstDay.getDay();
-    const startDate = new Date(firstDay);
-    startDate.setDate(firstDay.getDate() - startDayIndex);
- 
-    for (let i = 0; i < 42; i++){
-        const day = new Date(startDate);
-        day.setDate(startDate.getDate() + i);
+    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
+    const daysInMonth = new Date(currentYear, currentMonth+1, 0).getDate();
 
+    const currMonthName = monthNames[currentMonth];
+    document.querySelector('.current-month').textContent = `${currMonthName} ${currentYear}`;
+
+    for (let i = 0; i < firstDay; i++){
+        const empty = document.createElement('div');
+        empty.classList.add('calendar-day-cell', 'dimmed');
+        calendarGrid.appendChild(empty);
+    }
+
+    for (let day = 1; day < daysInMonth; day++){
         const dayCell = document.createElement('div');
         dayCell.classList.add('calendar-day-cell');
+        dayCell.textContent = day;
 
-        if (day.getMonth() != currentMonth){
-            dayCell.classList.add('dimmed');
-        } else {
-            dayCell.onclick = () => handleDayClick(day.getTime());
-        }
-
-        dayCell.textContent = day.getDate();
-
-        const currId = formatDateId(normalizeDateToDay(day));
-        const hasCapsule = capsules.some(c => c.id === currId);
-
-        if (hasCapsule && day.getMonth() === currentMonth){
+        const dateId = formatDateId(new Date(currentYear, currentMonth, day));
+        if (capsules.some(capsule => capsule.id === dateId)){
             dayCell.classList.add('has-capsule');
         }
 
-        if (currentSelectedCapsuleId == currId && day.getMonth() == currentMonth){
+        if (dateId === currentSelectedCapsuleId){
             dayCell.classList.add('selected-day');
-            dayCell.classList.remove('has-capsule');
         }
 
+        dayCell.addEventListener('click', () => {
+            currentSelectedCapsuleId = dateId;
+            renderCalendar();
+            renderSelectedCapsule();
+        });
+        
         calendarGrid.appendChild(dayCell);
     }
 }
