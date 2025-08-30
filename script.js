@@ -141,8 +141,28 @@ function renderSelectedCapsule(){
             deleteBtn.innerHTML = '&times;';
             deleteBtn.addEventListener('click', () => deleteItem(capsule.id, item.id));
 
+            let itemContent = '';
+
+            if (item.type === 'note'){
+
+            } else if (item.type === 'memory'){
+
+            } else if (item.type === 'music'){
+
+            } else if (item.type === 'file'){
+
+            }
+
+            if (item.type !== 'file' || !item.data){
+                itemDiv.innerHTML = itemContent;
+            }
             
+            itemDiv.appendChild(deleteBtn);
+            capsuleContentDiv.appendChild(itemDiv);
         });
+    } else {
+        capsuleContentDiv.classList.add('empty-state');
+        capsuleContentDiv.innerHTML = '';
     }
 }
 
