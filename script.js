@@ -67,9 +67,7 @@ function renderCalendar(){
     document.getElementById('current-month-year').textContent = `${monthNames[currentMonth]} ${currentYear}`;
     
     const firstDay = new Date(currentYear, currentMonth, 1);
-
     let startDayIndex = firstDay.getDay();
-
     const startDate = new Date(firstDay);
     startDate.setDate(firstDay.getDate() - startDayIndex);
  

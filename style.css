@@ -50,9 +50,6 @@ body{
     background: var(--muted-text);
     border-radius: 12px;
 }
-::-webkit-scrollbar-thumb:hover{
-    background: var(--navy);
-}
 
 .left-panel{
     display: flex;
