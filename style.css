@@ -18,14 +18,11 @@ body{
     font-family: var(--font1);
     color: var(--navy);
     background-color: var(--navy);
-
     margin: 0;
     padding: 0;
     min-height: 100vh; 
-    
     display: flex;
     flex-direction: column;
-    
     cursor: url("assets/cursor.ico"), auto;
 }
 
@@ -33,7 +30,6 @@ body{
     display: flex;
     flex-grow: 1;
     flex-direction: column;
-
     gap: 20px;
     padding: 20px;
 }
@@ -64,11 +60,9 @@ body{
     flex-direction: column;
     flex-basis: 33.333333333%;
     flex-shrink: 0;
-
     gap: 15px;
     padding: 20px;
     background-color: #f5f1eee8;
-
     border-radius: 30px;
 }
 
@@ -92,7 +86,6 @@ body{
     justify-content: space-between;
     align-items: center;
     background-color: rgba(255, 255, 255, 0.675);
-
     padding: 12px;
     border-radius: 8px;
     margin-bottom: 16px;
@@ -101,7 +94,6 @@ body{
 .calendar-navigation button{
     padding: 8px;
     border-radius: 3000px;
-
     border: 0px;
     background: none;
     cursor: url("assets/cursor.ico"), pointer;
@@ -116,7 +108,6 @@ body{
     width: 24px;
     stroke-width: 4;
     color: rgba(2, 11, 87, 0.877);
-
     border: 0px;
 }
 
@@ -130,13 +121,11 @@ body{
 
 .weekday-headers{
     display: grid;
-
     grid-template-columns: repeat(7, minmax(0,1fr));
     gap: 4px;
     text-align: center;
     font-size: 22px;
     font-weight: 500;
-
     opacity: 0.8;
     margin-bottom: 8px;
     color: var(--navy);
@@ -145,11 +134,9 @@ body{
 .calendar-grid{
     display: grid;
     grid-template-columns: repeat(7, minmax(0, 1fr));
-
     gap: 10px;
     text-align: center;
     background-color: rgba(155, 114, 80, 0.137);
-
     padding: 8px;
     border-radius: 8px;
 }
@@ -157,15 +144,12 @@ body{
 .calendar-day-cell{
     padding: 8px;
     border-radius: 8px;
-
     font-weight: 900;
     color: var(--navy);
     min-height: 48px;
-
     display: flex;
     align-items:center;
     justify-content: center;
-
     cursor: url("assets/cursor.ico"), pointer;
     flex-grow: 1;
 }
@@ -208,7 +192,6 @@ body{
     gap: 10px;
     padding: 30px;
     max-height: 100vh;
-
     border-radius: 30px;
     flex-grow: 1;
 }
@@ -225,11 +208,9 @@ body{
     padding: 16px;
     border-radius: 25px;
     border: none;
-    
     transition: all 0.2s ease;
     color: var(--navy);
     background-color: #fff;
-
     font-family: var(--font1);
     font-size: 22px;
 }
@@ -244,10 +225,8 @@ body{
     display: flex;
     flex-direction: column;
     gap: 20px;
-
     min-height: 500px;
     max-height: 70vh;
-
     overflow-y: auto;
     padding: 20px;
     background-color: rgb(234, 222, 217);
@@ -266,11 +245,9 @@ body{
     flex-direction: column;
     align-items: center;
     justify-content: center;
-
     height: 100%;
     padding: 16px;
     text-align: center;
-
     font-family: 'Gaegu', cursive;
 }
 
@@ -285,11 +262,9 @@ body{
     color: var(--white);
     padding: 12px 24px;
     border-radius: 5000px;
-
     font-weight: 600;
     font-size: 19px;
     font-family: var(--font1);
-
     transition: all 0.3s ease;
     border: none;
     cursor: url("assets/cursor.ico"), pointer;
@@ -415,10 +390,8 @@ body{
 .memory-item img{
     max-width: 100%;
     height: auto;
-
     border-radius: 8px;
     margin-bottom: 8px;
-
     object-fit: cover;
     max-height: 150px;
     border: 1px solid var(--light-cream);
@@ -482,7 +455,8 @@ body{
 
 .add-item-form input[type = "text"],
 .add-item-form textarea,
-.add-item-form select{
+.add-item-form select
+.add-item-form input[type = "file"]{
     padding: 8px;
     border-radius: 8px;
     border: 1px solid var(--light-cream);
@@ -499,7 +473,6 @@ body{
     display: flex;
     justify-content: center;
     padding-top: 20px;
-
     border-radius: 10px;
 }
 
@@ -508,14 +481,11 @@ body{
     color: var(--light-cream);
     padding: 12px 24px;
     margin-bottom: 5px;
-
     border: none;
     border-radius: 10px;
-
     font-weight: 500;
     font-size: 20px;
     font-family: var(--font1);
-
     cursor: url("assets/cursor.ico"), pointer;
 }
 
@@ -529,13 +499,11 @@ body{
     left: 0;
     width: 100%;
     height: 100%;
-
     background-color: rgba(0,0,0,0.5);
     display: flex;
     justify-content: center;
     align-items: center;
     z-index: 1000;
-
     font-size: 30px;
 }
 
