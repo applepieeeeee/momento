@@ -463,25 +463,45 @@ body{
 
 
 .capsule-item-image{
-
+    max-width: 100%;
+    height: auto;
+    margin-top: 10px;
+    border-radius: 12px;
 }
 
 .capsule-item-audio{
-
+    width: 100%;
+    margin-top: 10px;
 }
 
 .capsule-item-file a{
+    color: var(--navy);
+    font-weight: bold;
+    text-decoration: underline;
 
+    display: flex;
+    align-items: center;
+    gap: 5px;
 }
 
 .capsule-item-file a:hover{
-
+    color: #00021b;
 }
 
 #file-upload-form{
-
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
 }
 
 #file-upload-form input[type="file"]{
-    
+    border: 1px solid var(--muted-text);
+    border-radius: 10px;
+    padding: 10px;
+
+    font-family: var(--font1);
+    font-size: 18px;
+
+    color: var(--navy);
+    background-color: var(--light-cream);
 }
