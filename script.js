@@ -412,9 +412,13 @@ document.getElementById('next-month-btn').addEventListener('click', () => {
 });
 
 document.getElementById('search-bar').addEventListener('input', (e) => {
-
+    const term = e.target.value.toLowerCase();
+    if (searchTerm === ''){
+        renderCalendar();
+        renderSelectedCapsule();
+        return;
+    }
 })
-
 
 document.getElementById('close-modal-btn').addEventListener('click', hideModal);
 document.getElementById('item-modal').addEventListener('click', (e) => {
