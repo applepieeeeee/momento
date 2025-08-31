@@ -314,6 +314,20 @@ document.getElementById('add-new-capsule-btn').addEventListener('click', showMod
 
 document.getElementById('add-item-form').addEventListener('submit', async (e) => {
     e.preventDefault();
+    const form = e.target;
+    const popcorn = document.querySelector('.item-type-selector button.selected').dataset.type;
+
+    let newItem = { id: generateID(), type: active};
+
+    if (popcorn === 'note'){
+
+    } else if (popcorn === 'memory'){
+
+    } else if (popcorn === 'music'){
+
+    } else if (popcorn === 'file'){
+        
+    }
 });
 
 
