@@ -260,6 +260,24 @@ document.getElementById('close-edit-modal-btn').addEventListener('click', () => 
     document.getElementById('edit-note-modal').style.display = 'none';
 })
 
+function deleteItem(capsuleId, itemId){
+
+}
+
+function showModal(){
+    document.getElementById('item-modal').style.display = 'flex';
+
+    document.getElementById('add-item-form').reset();
+    document.querySelectorAll('.item-form-group').forEach(
+        group => group.style.display = 'none'
+    );
+    document.getElementById('note-form').style.display = 'flex';
+}
+
+function hideModal(){
+
+}
+
 /* update calendar when buttons press */
 document.getElementById('prev-month-btn').addEventListener('click', () => {
     currentMonth--;
@@ -278,24 +296,6 @@ document.getElementById('next-month-btn').addEventListener('click', () => {
     }
     renderCalendar();
 });
-
-function showModal(){
-    const modal = document.getElementById('item-modal');
-    modal.style.display = 'flex';
-
-    document.getElementById('add-item-form').reset();
-    document.getElementById('item-type-select').value = 'note';
-    document.getElementById('note-form').style.display = 'block';
-    document.getElementById('file-form').style.display = 'none';
-    document.getElementById('memory-form').style.display = 'none';
-    document.getElementById('music-form').style.display = 'none';
-}
-
-function hideModal(){
-    const modal = document.getElementById('item-modal');
-    modal.style.display = 'none';
-    document.getElementById('add-item-form').reset();
-}
 
 function deleteItem(capsuleId, section, itemId){
     const capsule = capsules.find(c => c.id === capsuleId);
