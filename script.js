@@ -418,6 +418,17 @@ document.getElementById('search-bar').addEventListener('input', (e) => {
         renderSelectedCapsule();
         return;
     }
+
+    const filteredCaps = capsules.filter(capsule => 
+        capsule.id.includes(term) ||
+        capsule.items.some(item =>
+            (item.type === 'note' && item.text.toLowerCase().includes(term)) || 
+            (item.type === 'memory' && item.description.toLowerCase().includes(term)) ||
+            (item.type === 'file' && (item.description.toLowerCase().includes(term) || (item.fileName && item.fileName.toLowerCase().includes(term)) )) ||
+            (item.type === 'music' && item.title.toLowerCase().includes(term) ) ||
+            (item.type === 'music' && item.url.toLowerCase().include(term))
+        )
+    );
 })
 
 document.getElementById('close-modal-btn').addEventListener('click', hideModal);
@@ -425,8 +436,7 @@ document.getElementById('item-modal').addEventListener('click', (e) => {
     if (e.target === e.currentTarget) hideModal();
 });
 
-
-// on loaddd
+// on load //
 document.addEventListener('DOMContentLoaded', () => {
     loadCapsules();
     renderCalendar();
