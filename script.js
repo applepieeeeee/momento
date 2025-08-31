@@ -142,8 +142,28 @@ function renderSelectedCapsule(){
             deleteBtn.addEventListener('click', () => deleteItem(capsule.id, item.id));
 
             let itemContent = '';
-
+            
             if (item.type === 'note'){
+                itemContent = `
+                    <h4> note </h4>
+                    <p class = "note-text"> ${item.text} </p>
+                `;
+
+                const editBtn = document.createElement('button');
+                editBtn.classList.add('edit-btn');
+                editBtn.innerHTML = '<i class = "fas fa-edit"></i>';
+
+                editBtn.style.position = 'absolute';
+                editBtn.style.top = '10px';
+                editBtn.style.right = '40px';
+                editBtn.style.background = 'none';
+                editBtn.style.border = 'none';
+                editBtn.style.fontSize = '18px';
+                editBtn.style.cursor = 'url("assets/cursor.ico")';
+                editBtn.style.color = 'var(--navy)';
+
+                editBtn.addEventListener('click', () => editNote(item.id, item.text));
+                itemDiv.appendChild(editBtn);
 
             } else if (item.type === 'memory'){
 
