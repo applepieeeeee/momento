@@ -370,9 +370,21 @@ document.getElementById('add-item-form').addEventListener('submit', async (e) =>
             newItem.mimeType = 'link';
             newItem.description = fileTitle;
         }
-    }
-);
 
+    if (newItem.type !== 'file' || newItem.data){
+        let existing = getCapsuleForDate(new Date(currentSelectedCapsuleId));
+        if (!existing) {
+            existing = { id: currentSelectedCapsuleId, items: []};
+            capsules.push(existing);
+        }
+        existing.items.push(newItem);
+        saveCapsules();
+        renderCalendar();
+        renderSelectedCapsule();
+        hideModal();
+        form.reset();
+    }
+});
 
 /* update calendar when buttons press */
 document.getElementById('prev-month-btn').addEventListener('click', () => {
