@@ -241,14 +241,13 @@ function editNote(itemId, currentText){
 
         const updated = textarea.value.trim();
         if (updated){
-            const capsule = getCapsuleForDate(new Date (currentSelectedCapsuleId));
+            const capsule = getCapsuleForDate(new Date(currentSelectedCapsuleId));
             if (capsule){
-                const newI = capsule.items.find(item => item.id === itemId){
-                    if (newI){
-                        newI.text = updated;
-                        saveCapsules();
-                        renderSelectedCapsule();
-                    }
+                const newI = capsule.items.find(item => item.id === itemId);
+                if (newI){
+                    newI.text = updated;
+                    saveCapsules();
+                    renderSelectedCapsule();
                 }
             }
         }
@@ -261,7 +260,20 @@ document.getElementById('close-edit-modal-btn').addEventListener('click', () => 
 })
 
 function deleteItem(capsuleId, itemId){
+    const capsuleIndex = capsules.findIndex(capsule => capsule.id === capsuleId);
 
+    if (capsuleIndex > -1){
+        const iIndex = capsules[capsuleIndex].items.findIndex(item => item.id === itemId);
+        if (iIndex > -1){
+            capsules[capsuleIndex].items.splice(iIndex, 1);
+            if (capsules[capsuleIndex].items.length === 0){
+                capsules.splice(capsuleIndex, 1);
+            }
+            renderCalendar();
+            renderSelectedCapsule();
+            saveCapsules();
+        }
+    }
 }
 
 function showModal(){
@@ -272,10 +284,15 @@ function showModal(){
         group => group.style.display = 'none'
     );
     document.getElementById('note-form').style.display = 'flex';
+
+    document.querySelectorAll(
+        '.item-type-selector button'
+    ).forEach(btn => btn.classList.remove('selected'));
+    document.querySelector('.item-type-selector button[data-type="note"]').classList.add('selected');
 }
 
 function hideModal(){
-
+    document.getElementById('item-modal').style.display = 'none';
 }
 
 /* update calendar when buttons press */
@@ -296,19 +313,6 @@ document.getElementById('next-month-btn').addEventListener('click', () => {
     }
     renderCalendar();
 });
-
-function deleteItem(capsuleId, section, itemId){
-    const capsule = capsules.find(c => c.id === capsuleId);
-    if (!capsule) return;
-
-    const index = capsule[section].findIndex(item => item.id === itemId);
-    if (index > -1){
-        capsule[section].splice(index,1);
-        saveCapsules();
-        renderSelectedCapsule();
-    }
-}
-
 
 
 document.getElementById('close-modal-btn').addEventListener('click', hideModal);
