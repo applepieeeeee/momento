@@ -20,10 +20,13 @@ function generateID(){
 
 /* all date function lol*/ 
 function parseDate(date){
+    const d = new Date(date);
+    d.setUTCHours(0,0,0,0,0);
     return new Intl.DateTimeFormat('en-US', {
         year: 'numeric',
         month: 'long',
-        day: 'numeric'
+        day: 'numeric',
+        timeZone: 'UTC'
     }).format(date);
 }
 
@@ -32,12 +35,13 @@ function formatDateId(date){
     const year = d.getFullYear();
     const month = (d.getMonth() + 1).toString().padStart(2, '0');
     const day = d.getDate().toString().padStart(2, '0');
+
     return `${year}-${month}-${day}`;
 }
 
 // find if date alr has a capsule
 function getCapsuleForDate(date){
-    const dateId = formatDateId(date);
+    dateId = formatDateId(date);
     return capsules.find(capsule => capsule.id === dateId);
 }
 
@@ -229,7 +233,6 @@ function renderSelectedCapsule(){
         capsuleContentDiv.innerHTML = '';
     }
 }
-
 
 function editNote(itemId, currentText){
     const modal = document.getElementById('edit-note-modal');
