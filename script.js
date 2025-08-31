@@ -45,7 +45,7 @@ function getCapsuleForDate(date){
 function loadCapsules(){
     const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
     if(stored){
-        capsules = JSON.parse(storedCapsules);
+        capsules = JSON.parse(stored);
     } else {
         capsules = [];
     }
@@ -55,8 +55,7 @@ function saveCapsules(){
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(capsules));
 }
 
-/*
-goals:  
+/* goals:  
 update the date display
 calc start + end dates
 creates div elements for each day
