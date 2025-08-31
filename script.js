@@ -295,8 +295,27 @@ function hideModal(){
 }
 
 document.querySelectorAll('.item-type-selector button').forEach(button => {
+    button.addEventListener('click', (e) => {
+        const selecttype = e.target.dataset.type;
 
+        document.querySelectorAll('.item-type-selector button').forEach(
+            btn => btn.classList.remove('selected')
+        );
+        e.target.classList.add('selected');
+
+        document.querySelectorAll('.item-form-group').forEach(grou => {
+            group.style.display = 'none';
+        });
+        document.getElementById(`${selecttype}-form`).style.display = 'flex';
+    });
 });
+
+document.getElementById('add-new-capsule-btn').addEventListener('click', showModal);
+
+document.getElementById('add-item-form').addEventListener('submit', async (e) => {
+    e.preventDefault();
+});
+
 
 /* update calendar when buttons press */
 document.getElementById('prev-month-btn').addEventListener('click', () => {
@@ -316,6 +335,10 @@ document.getElementById('next-month-btn').addEventListener('click', () => {
     }
     renderCalendar();
 });
+
+document.getElementById('search-bar').addEventListener('input', (e) => {
+
+})
 
 
 document.getElementById('close-modal-btn').addEventListener('click', hideModal);
