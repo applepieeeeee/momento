@@ -258,7 +258,7 @@ function editNote(itemId, currentText){
 
 document.getElementById('close-edit-modal-btn').addEventListener('click', () => {
     document.getElementById('edit-note-modal').style.display = 'none';
-})
+});
 
 
 function deleteItem(capsuleId, itemId){
@@ -471,6 +471,12 @@ document.addEventListener('DOMContentLoaded', () => {
         renderSelectedCapsule();
     } else {
         const capsuleContentDiv = document.getElementById('capsule-content');
-        capsuleContentDiv.innerHTML = `<p class = "placeholder"> select a calendar date to view its capsule </p>`;
+        const capsuleHeaderDate = document.getElementById('capsule-header-date');
+        const addBtn = document.getElementById('add-new-capsule-btn');
+
+        capsuleContentDiv.classList.add('empty-state');
+        capsuleContentDiv.innerHTML = '<p class="placeholder"> select a date to view or create a capsule</p>';
+        capsuleHeaderDate.textContent = 'select a date';
+        addBtn.style.display = 'none';
     }
 });
