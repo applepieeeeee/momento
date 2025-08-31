@@ -278,7 +278,6 @@ function deleteItem(capsuleId, itemId){
 
 function showModal(){
     document.getElementById('item-modal').style.display = 'flex';
-
     document.getElementById('add-item-form').reset();
     document.querySelectorAll('.item-form-group').forEach(
         group => group.style.display = 'none'
@@ -294,6 +293,10 @@ function showModal(){
 function hideModal(){
     document.getElementById('item-modal').style.display = 'none';
 }
+
+document.querySelectorAll('.item-type-selector button').forEach(button => {
+
+});
 
 /* update calendar when buttons press */
 document.getElementById('prev-month-btn').addEventListener('click', () => {
