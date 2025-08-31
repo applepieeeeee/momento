@@ -228,6 +228,7 @@ function renderSelectedCapsule(){
     }
 }
 
+
 function editNote(itemId, currentText){
     const modal = document.getElementById('edit-note-modal');
     const textarea = document.getElementById('edit-note-text-input');
@@ -258,6 +259,7 @@ function editNote(itemId, currentText){
 document.getElementById('close-edit-modal-btn').addEventListener('click', () => {
     document.getElementById('edit-note-modal').style.display = 'none';
 })
+
 
 function deleteItem(capsuleId, itemId){
     const capsuleIndex = capsules.findIndex(capsule => capsule.id === capsuleId);
@@ -332,9 +334,44 @@ document.getElementById('add-item-form').addEventListener('submit', async (e) =>
         newItem.title = document.getElementById('music-title-input').value.trim();
         if (!newItem.url) return;
     } else if (popcorn === 'file'){
+        const fileInput = document.getElementById('file-upload-input');
+        const fileLink = document.getElementById('file-link-input').value.trim();
+        const fileTitle = document.getElementById('file-title-input').value.trim();
+        const file = fileInput.files[0];
 
+        if(!file && !fileLink) return;
+
+        if (file){
+            const reader = new FileReader();
+            reader.onload = function(event){
+                newItem.data = event.target.result;
+                newItem.fileName = file.name;
+                newItem.mimeType = file.type;
+                newItem.description = fileTitle;
+
+                let existing = getCapsuleForDate(new Date(currentSelectedCapsuleId));
+                if (!existing)
+                    existing = { id: currentSelectedCapsuleId, items: []};
+                    capsules.push(existing);
+                }
+                existing.item.push(newItem);
+
+                saveCapsules();
+                renderCalendar();
+                renderSelectedCapsule();
+                hideModal();
+                form.reset();
+            };
+            reader.readAsDataURL(file);
+            return;
+        } else if (fileLink){
+            newItem.data = fileLink;
+            newItem.fileName = fileTitle || 'File Link';
+            newItem.mimeType = 'link';
+            newItem.description = fileTitle;
+        }
     }
-});
+);
 
 
 /* update calendar when buttons press */
