@@ -256,6 +256,10 @@ function editNote(itemId, currentText){
     };
 }
 
+document.getElementById('close-edit-modal-btn').addEventListener('click', () => {
+    document.getElementById('edit-note-modal').style.display = 'none';
+})
+
 /* update calendar when buttons press */
 document.getElementById('prev-month-btn').addEventListener('click', () => {
     currentMonth--;
