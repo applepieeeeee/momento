@@ -324,9 +324,13 @@ document.getElementById('add-item-form').addEventListener('submit', async (e) =>
         if (!noteText) return;
         newItem.text = noteText;
     } else if (popcorn === 'memory'){
-
+        newItem.url = document.getElementById('memory-image-input').value.trim();
+        newItem.description = document.getElementById('memory-description-input').value.trim();
+        if(!newItem.url) return;
     } else if (popcorn === 'music'){
-
+        newItem.url = document.getElementById('music-link-input').value.trim();
+        newItem.title = document.getElementById('music-title-input').value.trim();
+        if (!newItem.url) return;
     } else if (popcorn === 'file'){
 
     }
