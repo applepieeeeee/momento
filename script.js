@@ -394,6 +394,9 @@ document.getElementById('prev-month-btn').addEventListener('click', () => {
         currentYear--;
     }
     renderCalendar();
+    clearSelectedDay();
+    currentSelectedCapsuleId = null;
+    renderSelectedCapsule();
 });
 
 document.getElementById('next-month-btn').addEventListener('click', () => {
@@ -403,6 +406,9 @@ document.getElementById('next-month-btn').addEventListener('click', () => {
         currentYear++;
     }
     renderCalendar();
+    clearSelectedDay();
+    currentSelectedCapsuleId = null;
+    renderSelectedCapsule();
 });
 
 document.getElementById('search-bar').addEventListener('input', (e) => {
