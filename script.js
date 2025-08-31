@@ -35,12 +35,13 @@ function formatDateId(date){
     return `${year}-${month}-${day}`;
 }
 
+// find if date alr has a capsule
 function getCapsuleForDate(date){
     const dateId = formatDateId(date);
     return capsules.find(capsule => capsule.id === dateId);
 }
 
-/* local storage for capsules */
+// load all capsule when the page loads
 function loadCapsules(){
     const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
     if(stored){
@@ -105,9 +106,8 @@ function renderCalendar(){
 
 function clearSelectedDay(){
     const dayCells = document.querySelectorAll('.calendar-day-cell');
-    dayCelss.forEach(cell => cell.classList.remove('selected-day'));
+    dayCells.forEach(cell => cell.classList.remove('selected-day'));
 }
-
 
 function renderSelectedCapsule(){
     const capsuleContentDiv = document.getElementById('capsule-content');
@@ -121,6 +121,7 @@ function renderSelectedCapsule(){
         capsuleHeaderDate.textContent = 'select a date';
         capsuleContentDiv.classList.add('empty-state');
         capsuleContentDiv.innerHTML = '<p class = "placeholder"> select a date to view or create a capsule. </p>';
+        
         addBtn.style.display = 'none';
         return;
     }
@@ -239,7 +240,6 @@ function editNote(itemId, currentText){
 
     form.onsubmit = (e) => {
         e.preventDefault();
-
         const updated = textarea.value.trim();
         if (updated){
             const capsule = getCapsuleForDate(new Date(currentSelectedCapsuleId));
@@ -268,6 +268,7 @@ function deleteItem(capsuleId, itemId){
         const iIndex = capsules[capsuleIndex].items.findIndex(item => item.id === itemId);
         if (iIndex > -1){
             capsules[capsuleIndex].items.splice(iIndex, 1);
+
             if (capsules[capsuleIndex].items.length === 0){
                 capsules.splice(capsuleIndex, 1);
             }
