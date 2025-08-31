@@ -166,11 +166,53 @@ function renderSelectedCapsule(){
                 itemDiv.appendChild(editBtn);
 
             } else if (item.type === 'memory'){
-
+                itemContent = `
+                    <h4>memory</h4>
+                    <p>${item.description}</p>
+                    
+                    ${item.url ?`
+                        <${item.mediaType === 'video' ? 'video controls' : 'img'}
+                            src = "${item.url}"
+                            class = "capsule-item-image"
+                            alt = "${item.description}">
+                        </${item.mediaType === 'video' ? 'video' : 'img'}>
+                    ` : ''}
+                `;
             } else if (item.type === 'music'){
-
+                itemContent =  `
+                    <h4> music </h4>
+                    <p> ${item.title} </p>
+                    <a href = "${item.url}" target = "_blank" class = "capsule-item-music-link">listen here</a>
+                `;
             } else if (item.type === 'file'){
+                let fileContent = '';
+                
+                if (item.mimeType.startsWith('image/')){
+                    fileContent = `<img src = "${item.data}" alt = ${item.description}" class = "capsule-item-image">`;
+                } else if (item.mimeType.startsWith('audio/')){
+                    fileContent = `<audio controls src = "${item.data}" class = "capsule-item-audio"></audio>`;
+                } else {
+                    const downloadLink = document.createElement('a');
+                    downloadLink.href = item.data;
+                    downloadLink.download = item.fileName;
+                    downloadLink.innerHTML = '<i class = "fas fa-download"></i> ${item.fileName}';
 
+                    itemContent =  `
+                        <h4> file </h4>
+                        <p>${item.description || 'no description'}<p>
+                        <div class = "capsule-item-file"></div>
+                    `;
+                    itemDiv.innerHTML = itemContent;
+                    itemDiv.querySelector('.capsule-item-file').appendChild(downloadLink);
+                }
+
+                if (fileContent){
+                    itemContent = `
+                        <h4> file </h4>
+                        <p> ${item.description || 'no description'}</p>
+                        ${fileContent}
+                    `;
+                }
             }
 
             if (item.type !== 'file' || !item.data){
