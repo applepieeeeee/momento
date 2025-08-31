@@ -320,13 +320,15 @@ document.getElementById('add-item-form').addEventListener('submit', async (e) =>
     let newItem = { id: generateID(), type: active};
 
     if (popcorn === 'note'){
-
+        const noteText = document.getElementById('note-text-input').value.trim();
+        if (!noteText) return;
+        newItem.text = noteText;
     } else if (popcorn === 'memory'){
 
     } else if (popcorn === 'music'){
 
     } else if (popcorn === 'file'){
-        
+
     }
 });
 
