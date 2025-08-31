@@ -228,6 +228,34 @@ function renderSelectedCapsule(){
     }
 }
 
+function editNote(itemId, currentText){
+    const modal = document.getElementById('edit-note-modal');
+    const textarea = document.getElementById('edit-note-text-input');
+    const form = document.getElementById('edit-note-form-element');
+
+    textarea.value = currentText;
+    modal.style.display = 'flex';
+
+    form.onsubmit = (e) => {
+        e.preventDefault();
+
+        const updated = textarea.value.trim();
+        if (updated){
+            const capsule = getCapsuleForDate(new Date (currentSelectedCapsuleId));
+            if (capsule){
+                const newI = capsule.items.find(item => item.id === itemId){
+                    if (newI){
+                        newI.text = updated;
+                        saveCapsules();
+                        renderSelectedCapsule();
+                    }
+                }
+            }
+        }
+        modal.style.display = 'none';
+    };
+}
+
 /* update calendar when buttons press */
 document.getElementById('prev-month-btn').addEventListener('click', () => {
     currentMonth--;
