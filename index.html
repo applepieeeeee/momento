@@ -27,6 +27,10 @@
 
                 <input type = "text" id = "search-bar" clsas = "search-bar" placeholder = "search back in time...">
 
+                <div class = "calendar-layout">
+                    
+                </div>
+
                 <div class = "calendar-navigation">
                     <button id = "prev-month-btn">
                         <svg xmlns = "http://www.w3.org/2000/svg" class = "h-6 w-6" fill = "none" 
@@ -43,22 +47,19 @@
                         </svg>
                     </button>
                 </div>
-                
-                <div class = "weekday-headers">
-                    <div>sun</div>
-                    <div>mon</div>
-                    <div>tue</div>
-                    <div>wed</div>
-                    <div>thu</div>
-                    <div>fri</div>
-                    <div>sat</div>
-                </div>
 
                 <div class = "calendar-container">
-                    <div class = "calendar-grid" id = "calendar-grid"></div>
-                </div>
+                    <div class = "weekday-headers">
+                        <div>sun</div>
+                        <div>mon</div>
+                        <div>tue</div>
+                        <div>wed</div>
+                        <div>thu</div>
+                        <div>fri</div>
+                        <div>sat</div>
+                    </div>
 
-                <div id = "calendar-grid" class = "calendar-grid">
+                    <div class = "calendar-grid" id = "calendar-grid"></div>
                 </div>
             </div>
 
@@ -69,6 +70,9 @@
                 </div>
                 <button id = "add-new-capsule-btn" class = "add-new-capsule-btn" style = "display: none;">
                     add new capsule
+                </button>
+                <button id = "delete-capsule-btn" class = "delete-capsule-button">
+                    delete capsule
                 </button>
             </div>
         </div>
