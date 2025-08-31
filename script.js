@@ -79,7 +79,7 @@ function renderCalendar(){
         calendarGrid.appendChild(empty);
     }
 
-    for (let day = 1; day < daysInMonth; day++){
+    for (let day = 1; day <= daysInMonth; day++){
         const dayCell = document.createElement('div');
         dayCell.classList.add('calendar-day-cell');
         dayCell.textContent = day;
@@ -216,7 +216,9 @@ function renderSelectedCapsule(){
             }
 
             if (item.type !== 'file' || !item.data){
-                itemDiv.innerHTML = itemContent;
+                if (item.type !== 'file'){
+                    itemDiv.innerHTML = itemContent;
+                }
             }
             
             itemDiv.appendChild(deleteBtn);
@@ -305,7 +307,7 @@ document.querySelectorAll('.item-type-selector button').forEach(button => {
         );
         e.target.classList.add('selected');
 
-        document.querySelectorAll('.item-form-group').forEach(grou => {
+        document.querySelectorAll('.item-form-group').forEach(group => {
             group.style.display = 'none';
         });
         document.getElementById(`${selecttype}-form`).style.display = 'flex';
@@ -317,23 +319,26 @@ document.getElementById('add-new-capsule-btn').addEventListener('click', showMod
 document.getElementById('add-item-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const form = e.target;
-    const popcorn = document.querySelector('.item-type-selector button.selected').dataset.type;
+    const itemType = document.querySelector('.item-type-selector button.selected').dataset.type;
 
     let newItem = { id: generateID(), type: active};
 
-    if (popcorn === 'note'){
+    if (itemType === 'note'){
         const noteText = document.getElementById('note-text-input').value.trim();
         if (!noteText) return;
         newItem.text = noteText;
-    } else if (popcorn === 'memory'){
+
+    } else if (itemType === 'memory'){
         newItem.url = document.getElementById('memory-image-input').value.trim();
         newItem.description = document.getElementById('memory-description-input').value.trim();
         if(!newItem.url) return;
-    } else if (popcorn === 'music'){
+
+    } else if (itemType === 'music'){
         newItem.url = document.getElementById('music-link-input').value.trim();
         newItem.title = document.getElementById('music-title-input').value.trim();
         if (!newItem.url) return;
-    } else if (popcorn === 'file'){
+
+    } else if (itemType === 'file'){
         const fileInput = document.getElementById('file-upload-input');
         const fileLink = document.getElementById('file-link-input').value.trim();
         const fileTitle = document.getElementById('file-title-input').value.trim();
@@ -350,7 +355,7 @@ document.getElementById('add-item-form').addEventListener('submit', async (e) =>
                 newItem.description = fileTitle;
 
                 let existing = getCapsuleForDate(new Date(currentSelectedCapsuleId));
-                if (!existing)
+                if (!existing){
                     existing = { id: currentSelectedCapsuleId, items: []};
                     capsules.push(existing);
                 }
@@ -362,21 +367,25 @@ document.getElementById('add-item-form').addEventListener('submit', async (e) =>
                 hideModal();
                 form.reset();
             };
+
             reader.readAsDataURL(file);
             return;
+
         } else if (fileLink){
             newItem.data = fileLink;
             newItem.fileName = fileTitle || 'File Link';
             newItem.mimeType = 'link';
             newItem.description = fileTitle;
         }
+    }
 
-    if (newItem.type !== 'file' || newItem.data){
+    if (itemType !== 'file' || newItem.data){
         let existing = getCapsuleForDate(new Date(currentSelectedCapsuleId));
         if (!existing) {
             existing = { id: currentSelectedCapsuleId, items: []};
             capsules.push(existing);
         }
+
         existing.items.push(newItem);
         saveCapsules();
         renderCalendar();
