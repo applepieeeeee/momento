@@ -429,6 +429,30 @@ document.getElementById('search-bar').addEventListener('input', (e) => {
             (item.type === 'music' && item.url.toLowerCase().include(term))
         )
     );
+
+    const foundIds = filteredCaps.map(c => c.id);
+    const firstFoundId = foundIds.length > 0 ? foundIds[0] : null;
+
+    const dayCells = document.querySelectorAll('.calendar-day-cell');
+    dayCells.forEach(cell => {
+        const cellDate = new Date(currentYear, currentMonth, parseInt(cell.textContent));
+        const dateId = formatDateId(cellDate);
+        cell.classList.remove('has-capsule', 'selected-day');
+
+        if (foundIds.includes(dateId)) cell.classList.add('has-capsule');
+    })
+
+    if (firstFoundId){
+        renderCalendar();
+        renderSelectedCapsule();
+    } else {
+        const capdiv = document.getElementById('capsule-content');
+        capdiv.innerHTML = '<p class = "placeholder"> no capsules found :( </p>';
+
+        const dayCells = document.querySelectorAll('.calendar-day-cell');
+        dayCells.forEach(cell => cell.classList.remove('selected-day'));
+        currentSelectedCapsuleId = null;
+    }
 })
 
 document.getElementById('close-modal-btn').addEventListener('click', hideModal);
@@ -440,7 +464,6 @@ document.getElementById('item-modal').addEventListener('click', (e) => {
 document.addEventListener('DOMContentLoaded', () => {
     loadCapsules();
     renderCalendar();
-    initializeModalItemForm();
 
     if (capsules.length > 0){
         currentSelectedCapsuleId = capsules[0].id;
