@@ -87,6 +87,10 @@ body{
     opacity: 0.8;
 }
 
+.app-title:hover, .app-subtitle:hover{
+    transform: scale(1.04);
+}
+
 .calendar-navigation{
     display: flex;
     justify-content: space-between;
