@@ -20,13 +20,10 @@ function generateID(){
 
 /* all date function lol*/ 
 function parseDate(date){
-    const d = new Date(date);
-    d.setUTCHours(0,0,0,0,0);
     return new Intl.DateTimeFormat('en-US', {
         year: 'numeric',
         month: 'long',
-        day: 'numeric',
-        timeZone: 'UTC'
+        day: 'numeric'
     }).format(date);
 }
 
@@ -35,13 +32,12 @@ function formatDateId(date){
     const year = d.getFullYear();
     const month = (d.getMonth() + 1).toString().padStart(2, '0');
     const day = d.getDate().toString().padStart(2, '0');
-
     return `${year}-${month}-${day}`;
 }
 
 // find if date alr has a capsule
 function getCapsuleForDate(date){
-    dateId = formatDateId(date);
+    const dateId = formatDateId(date);
     return capsules.find(capsule => capsule.id === dateId);
 }
 
@@ -49,7 +45,7 @@ function getCapsuleForDate(date){
 function loadCapsules(){
     const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
     if(stored){
-        capsules = JSON.parse(stored);
+        capsules = JSON.parse(storedCapsules);
     } else {
         capsules = [];
     }
@@ -59,7 +55,8 @@ function saveCapsules(){
     localStorage.setItem(LOCAL_STORAGE_KEY, JSON.stringify(capsules));
 }
 
-/* goals:  
+/*
+goals:  
 update the date display
 calc start + end dates
 creates div elements for each day
@@ -83,7 +80,7 @@ function renderCalendar(){
         calendarGrid.appendChild(empty);
     }
 
-    for (let day = 1; day <= daysInMonth; day++){
+    for (let day = 1; day < daysInMonth; day++){
         const dayCell = document.createElement('div');
         dayCell.classList.add('calendar-day-cell');
         dayCell.textContent = day;
@@ -220,9 +217,7 @@ function renderSelectedCapsule(){
             }
 
             if (item.type !== 'file' || !item.data){
-                if (item.type !== 'file'){
-                    itemDiv.innerHTML = itemContent;
-                }
+                itemDiv.innerHTML = itemContent;
             }
             
             itemDiv.appendChild(deleteBtn);
@@ -233,6 +228,7 @@ function renderSelectedCapsule(){
         capsuleContentDiv.innerHTML = '';
     }
 }
+
 
 function editNote(itemId, currentText){
     const modal = document.getElementById('edit-note-modal');
@@ -310,7 +306,7 @@ document.querySelectorAll('.item-type-selector button').forEach(button => {
         );
         e.target.classList.add('selected');
 
-        document.querySelectorAll('.item-form-group').forEach(group => {
+        document.querySelectorAll('.item-form-group').forEach(grou => {
             group.style.display = 'none';
         });
         document.getElementById(`${selecttype}-form`).style.display = 'flex';
@@ -322,26 +318,23 @@ document.getElementById('add-new-capsule-btn').addEventListener('click', showMod
 document.getElementById('add-item-form').addEventListener('submit', async (e) => {
     e.preventDefault();
     const form = e.target;
-    const itemType = document.querySelector('.item-type-selector button.selected').dataset.type;
+    const popcorn = document.querySelector('.item-type-selector button.selected').dataset.type;
 
     let newItem = { id: generateID(), type: active};
 
-    if (itemType === 'note'){
+    if (popcorn === 'note'){
         const noteText = document.getElementById('note-text-input').value.trim();
         if (!noteText) return;
         newItem.text = noteText;
-
-    } else if (itemType === 'memory'){
+    } else if (popcorn === 'memory'){
         newItem.url = document.getElementById('memory-image-input').value.trim();
         newItem.description = document.getElementById('memory-description-input').value.trim();
         if(!newItem.url) return;
-
-    } else if (itemType === 'music'){
+    } else if (popcorn === 'music'){
         newItem.url = document.getElementById('music-link-input').value.trim();
         newItem.title = document.getElementById('music-title-input').value.trim();
         if (!newItem.url) return;
-
-    } else if (itemType === 'file'){
+    } else if (popcorn === 'file'){
         const fileInput = document.getElementById('file-upload-input');
         const fileLink = document.getElementById('file-link-input').value.trim();
         const fileTitle = document.getElementById('file-title-input').value.trim();
@@ -358,7 +351,7 @@ document.getElementById('add-item-form').addEventListener('submit', async (e) =>
                 newItem.description = fileTitle;
 
                 let existing = getCapsuleForDate(new Date(currentSelectedCapsuleId));
-                if (!existing){
+                if (!existing)
                     existing = { id: currentSelectedCapsuleId, items: []};
                     capsules.push(existing);
                 }
@@ -370,25 +363,21 @@ document.getElementById('add-item-form').addEventListener('submit', async (e) =>
                 hideModal();
                 form.reset();
             };
-
             reader.readAsDataURL(file);
             return;
-
         } else if (fileLink){
             newItem.data = fileLink;
             newItem.fileName = fileTitle || 'File Link';
             newItem.mimeType = 'link';
             newItem.description = fileTitle;
         }
-    }
 
-    if (itemType !== 'file' || newItem.data){
+    if (newItem.type !== 'file' || newItem.data){
         let existing = getCapsuleForDate(new Date(currentSelectedCapsuleId));
         if (!existing) {
             existing = { id: currentSelectedCapsuleId, items: []};
             capsules.push(existing);
         }
-
         existing.items.push(newItem);
         saveCapsules();
         renderCalendar();

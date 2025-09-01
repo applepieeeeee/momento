@@ -22,41 +22,55 @@
                 </h1>
 
                 <div id = "user-info">
-                    <p id = "user-id" class = "user-id-display"></p>
+                    <p id = "user-id" class = "user-id-display" style="display: none;" ></p>
                 </div>
 
                 <input type = "text" id = "search-bar" clsas = "search-bar" placeholder = "search back in time...">
 
-                <div class = "calendar-layout">
-                    <div class = "weekday-headers">
-                        <div class = "weekday">sun</div>
-                        <div class = "weekday">mon</div>
-                        <div class = "weekday">tue</div>
-                        <div class = "weekday">wed</div>
-                        <div class = "weekday">thu</div>
-                        <div class = "weekday">fri</div>
-                        <div class = "weekday">sun</div>
-                    </div>
-                    <div class = "calendar-controls">
-                        <button id = "prev-month-btn" class = "nav-btn"> <i class = "fa-solid fa-angle-left"></i></button>
-                        <h2 id = "current-month-year"></h2>
-                        <button id = "next-month-btn" class = "nav-btn"> <i class = "fa-solid fa-angle-right"></i></button>
-                    </div>
-                    <div id = "calendar-grid" class = "calendar-grid"></div>
+                <div class = "calendar-navigation">
+                    <button id = "prev-month-btn">
+                        <svg xmlns = "http://www.w3.org/2000/svg" class = "h-6 w-6" fill = "none" 
+                             viewBox = "0 0 24 24" stroke = "currentColor" stroke-width = "2">
+                            <path stroke-linecap = "round" stroke-linejoin = "round" d = "M15 19l-7-7 7-7" />
+                        </svg>
+                    </button>
+
+                    <span class = "current-month"></span>
+
+                    <button id = "next-month-btn">
+                        <svg xmlns = "http://www.w3.org/2000/svg" class = "h-6 w-6" fill = "none" viewBox = "0 0 24 24" stroke = "currentColor" stroke-width = "2">
+                            <path stroke-linecap = "round" stroke-linejoin = "round" d = "M9 5l7 7-7 7"></path>
+                        </svg>
+                    </button>
+                </div>
+
+
+                <div class = "calendar-container">
+                    <div class = "calendar-grid" id = "calendar-grid"></div>
+                </div>
+
+                <div class = "weekday-headers">
+                    <div>sun</div>
+                    <div>mon</div>
+                    <div>tue</div>
+                    <div>wed</div>
+                    <div>thu</div>
+                    <div>fri</div>
+                    <div>sat</div>
+                </div>
+
+                <div id = "calendar-grid" class = "calendar-grid">
                 </div>
             </div>
 
             <div class = "right-panel">
-                <div class = "capsule-header">
-                    <h2 id = "capsule-header-date"></h2>
-                    <button id = "add-new-capsule-btn" class = "add-new-capsule-button">
-                        <i class = "fa-solid fa-plus"></i> add to capsule
-                    </button>
-                    <button id = "delete-capsule-btn" class = "delete-capsule-button">
-                        <i class = "fa-solid fa-trash-can"></i> delete capsule
-                    </button>
+                <div id = "capsule-header-date" class = "capsule-header-date"></div>
+                <div id = "capsule-content" class = "capsule-content empty-state">
+                    <p class = "placeholder">select a day on the calendar to view its capsule</p>
                 </div>
-                <div id = "capsule-content" class = "capsule-content"></div>
+                <button id = "add-new-capsule-btn" class = "add-new-capsule-btn" style = "display: none;">
+                    add new capsule
+                </button>
             </div>
         </div>
 
@@ -67,33 +81,38 @@
                     <button class = "class-modal-btn" id = "close-modal-btn">&times;</button>
                 </div>
 
-                <form id = "item-form-element" id = "item-form">
-                    <div class = "form-tabs">
-                        <button type="button" class="tab-button active-tab" data-form-id="note-form">note</button>
-                        <button type="button" class="tab-button" data-form-id="file-form">file</button>
-                        <button type="button" class="tab-button" data-form-id="memory-form">memory</button>
-                        <button type="button" class="tab-button" data-form-id="music-form">music</button>
-                    </div>
+                <div class = "item-type-selector" id = "item-type-selector">
+                    <button type = "button" data-type = "note">note</button>
+                    <button type = "button" data-type = "file">file</button>
+                    <button type = "button" data-type = "memory">memory</button>
+                    <button type = "button" data-type = "music">music</button>
+                </div>
 
-                    <div id="note-form" class="item-form-group">
-                        <textarea id = "note-text-input" placeholder="what do you want to remember?"></textarea>
+                <form id = "add-item-form" class = "add-item-form">
+                    <div id = "note-form" class = "item-form-group">
+                        <textarea id = "note-text-input" placeholder="what do you want to remember?" rows="4"></textarea>
                     </div>
 
                     <div id="file-form" class="item-form-group" style="display:none;">
-                        <input type="file" id="file-input" accept="image/*, audio/*, video/*, .pdf">
-                        <input type="text" id="file-desc-input" placeholder="add a description for your file">
+                        <label for = "file-upload-input">upload file: </label>
+                        <input type = "file" id = "file-upload-input">
+                        <br>
+                        <label for="file-link-input"> or use a link: </label>
+                        <input type = "text" id = "file-link-input" placeholder="enter a file url">
+                        <input type = "text" id = "file-title-input" placeholder="enter a file title">
                     </div>
 
                     <div id="memory-form" class="item-form-group" style="display:none;">
-                        <textarea id="memory-text-input" placeholder="write your memory down..."></textarea>
+                        <input type = "text" id = "memory-image-input" placeholder="enter an image url">
+                        <input type = "text" id = "memory-description-input" placeholder = "a short description">
                     </div>
 
-                    <div id="music-form" class="item-form-group" style="display:none;">
-                        <input type="text" id="music-link-input" placeholder="enter music url">
-                        <input type="text" id="music-title-input" placeholder="song title or desc">
+                    <div id = "music-form" class = "item-form-group" style="display:none;">
+                        <input type = "text" id = "music-link-input" placeholder="enter music url">
+                        <input type = "text" id = "music-title-input" placeholder="song title or desc">
                     </div>
 
-                    <button type="submit" class="add-new-item-button">add item to capsule</button>
+                    <button type = "submit" class="add-new-item-button">add item to capsule</button>
                 </form>
             </div>
         </div>
