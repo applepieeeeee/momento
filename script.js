@@ -35,20 +35,17 @@ function formatDateId(date){
     return `${year}-${month}-${day}`;
 }
 
-// find if date alr has a capsule
-function getCapsuleForDate(date){
-    const dateId = formatDateId(date);
-    return capsules.find(capsule => capsule.id === dateId);
+function normalizeDateToDay(date){
+    const d = new Date(date);
+    d.setHours(0,0,0,0);
+    return d;
 }
 
-// load all capsule when the page loads
+/* local storage for capsules */
 function loadCapsules(){
-    const stored = localStorage.getItem(LOCAL_STORAGE_KEY);
-    if(stored){
-        capsules = JSON.parse(storedCapsules);
-    } else {
-        capsules = [];
-    }
+    const data = localStorage.getItem(LOCAL_STORAGE_KEY);
+    capsules = data ? JSON.parse(data) : [];
+    capsules.sort((a,b) => b.id.localeCompare(a.id));
 }
 
 function saveCapsules(){
@@ -67,325 +64,55 @@ check if capsule exists for each day
 function renderCalendar(){
     const calendarGrid = document.getElementById('calendar-grid');
     calendarGrid.innerHTML = '';
+    document.getElementById('current-month-year').textContent = `${monthNames[currentMonth]} ${currentYear}`;
     
-    const firstDay = new Date(currentYear, currentMonth, 1).getDay();
-    const daysInMonth = new Date(currentYear, currentMonth+1, 0).getDate();
+    const firstDay = new Date(currentYear, currentMonth, 1);
 
-    const currMonthName = monthNames[currentMonth];
-    document.querySelector('.current-month').textContent = `${currMonthName} ${currentYear}`;
+    let startDayIndex = firstDay.getDay();
 
-    for (let i = 0; i < firstDay; i++){
-        const empty = document.createElement('div');
-        empty.classList.add('calendar-day-cell', 'dimmed');
-        calendarGrid.appendChild(empty);
-    }
+    const startDate = new Date(firstDay);
+    startDate.setDate(firstDay.getDate() - startDayIndex);
+ 
+    for (let i = 0; i < 42; i++){
+        const day = new Date(startDate);
+        day.setDate(startDate.getDate() + i);
 
-    for (let day = 1; day < daysInMonth; day++){
         const dayCell = document.createElement('div');
         dayCell.classList.add('calendar-day-cell');
-        dayCell.textContent = day;
 
-        const dateId = formatDateId(new Date(currentYear, currentMonth, day));
-        if (capsules.some(capsule => capsule.id === dateId)){
+        if (day.getMonth() != currentMonth){
+            dayCell.classList.add('dimmed');
+        } else {
+            dayCell.onclick = () => handleDayClick(day.getTime());
+        }
+
+        dayCell.textContent = day.getDate();
+
+        const currId = formatDateId(normalizeDateToDay(day));
+        const hasCapsule = capsules.some(c => c.id === currId);
+
+        if (hasCapsule && day.getMonth() === currentMonth){
             dayCell.classList.add('has-capsule');
         }
 
-        if (dateId === currentSelectedCapsuleId){
+        if (currentSelectedCapsuleId == currId && day.getMonth() == currentMonth){
             dayCell.classList.add('selected-day');
+            dayCell.classList.remove('has-capsule');
         }
 
-        dayCell.addEventListener('click', () => {
-            currentSelectedCapsuleId = dateId;
-            renderCalendar();
-            renderSelectedCapsule();
-        });
-        
         calendarGrid.appendChild(dayCell);
     }
 }
 
-function clearSelectedDay(){
-    const dayCells = document.querySelectorAll('.calendar-day-cell');
-    dayCells.forEach(cell => cell.classList.remove('selected-day'));
+function handleDayClick(timestamp){
+    const clickedDate = new Date(timestamp);
+    clickedDate.setMinutes(clickedDate.getMinutes() + clickedDate.getTimezoneOffset());
+    const normalizedClickedDate = normalizeDateToDay(clickedDate);
+    
+    currentSelectedCapsuleId = formatDateId(normalizedClickedDate);
+    renderCalendar();
+    renderSelectedCapsule();
 }
-
-function renderSelectedCapsule(){
-    const capsuleContentDiv = document.getElementById('capsule-content');
-    const capsuleHeaderDate = document.getElementById('capsule-header-date');
-    const addBtn = document.getElementById('add-new-capsule-btn');
-
-    capsuleContentDiv.innerHTML = '';
-
-    const selectedDate = new Date(currentSelectedCapsuleId);
-    if (isNaN(selectedDate.getTime())){
-        capsuleHeaderDate.textContent = 'select a date';
-        capsuleContentDiv.classList.add('empty-state');
-        capsuleContentDiv.innerHTML = '<p class = "placeholder"> select a date to view or create a capsule. </p>';
-        
-        addBtn.style.display = 'none';
-        return;
-    }
-
-    capsuleHeaderDate.textContent = parseDate(selectedDate);
-    addBtn.style.display = 'block';
-
-    const capsule = getCapsuleForDate(selectedDate);
-    if (capsule && capsule.items && capsule.items.length > 0){
-        capsuleContentDiv.classList.remove('empty-state');
-        capsule.items.forEach(item => {
-            const itemDiv = document.createElement('div');
-            itemDiv.classList.add('capsule-item');
-            itemDiv.dataset.itemId = item.id;
-
-            const deleteBtn = document.createElement('button');
-            deleteBtn.classList.add('delete-btn');
-            deleteBtn.innerHTML = '&times;';
-            deleteBtn.addEventListener('click', () => deleteItem(capsule.id, item.id));
-
-            let itemContent = '';
-            
-            if (item.type === 'note'){
-                itemContent = `
-                    <h4> note </h4>
-                    <p class = "note-text"> ${item.text} </p>
-                `;
-
-                const editBtn = document.createElement('button');
-                editBtn.classList.add('edit-btn');
-                editBtn.innerHTML = '<i class = "fas fa-edit"></i>';
-
-                editBtn.style.position = 'absolute';
-                editBtn.style.top = '10px';
-                editBtn.style.right = '40px';
-                editBtn.style.background = 'none';
-                editBtn.style.border = 'none';
-                editBtn.style.fontSize = '18px';
-                editBtn.style.cursor = 'url("assets/cursor.ico")';
-                editBtn.style.color = 'var(--navy)';
-
-                editBtn.addEventListener('click', () => editNote(item.id, item.text));
-                itemDiv.appendChild(editBtn);
-
-            } else if (item.type === 'memory'){
-                itemContent = `
-                    <h4>memory</h4>
-                    <p>${item.description}</p>
-                    
-                    ${item.url ?`
-                        <${item.mediaType === 'video' ? 'video controls' : 'img'}
-                            src = "${item.url}"
-                            class = "capsule-item-image"
-                            alt = "${item.description}">
-                        </${item.mediaType === 'video' ? 'video' : 'img'}>
-                    ` : ''}
-                `;
-            } else if (item.type === 'music'){
-                itemContent =  `
-                    <h4> music </h4>
-                    <p> ${item.title} </p>
-                    <a href = "${item.url}" target = "_blank" class = "capsule-item-music-link">listen here</a>
-                `;
-            } else if (item.type === 'file'){
-                let fileContent = '';
-                
-                if (item.mimeType.startsWith('image/')){
-                    fileContent = `<img src = "${item.data}" alt = ${item.description}" class = "capsule-item-image">`;
-                } else if (item.mimeType.startsWith('audio/')){
-                    fileContent = `<audio controls src = "${item.data}" class = "capsule-item-audio"></audio>`;
-                } else {
-                    const downloadLink = document.createElement('a');
-                    downloadLink.href = item.data;
-                    downloadLink.download = item.fileName;
-                    downloadLink.innerHTML = '<i class = "fas fa-download"></i> ${item.fileName}';
-
-                    itemContent =  `
-                        <h4> file </h4>
-                        <p>${item.description || 'no description'}<p>
-                        <div class = "capsule-item-file"></div>
-                    `;
-                    itemDiv.innerHTML = itemContent;
-                    itemDiv.querySelector('.capsule-item-file').appendChild(downloadLink);
-                }
-
-                if (fileContent){
-                    itemContent = `
-                        <h4> file </h4>
-                        <p> ${item.description || 'no description'}</p>
-                        ${fileContent}
-                    `;
-                }
-            }
-
-            if (item.type !== 'file' || !item.data){
-                itemDiv.innerHTML = itemContent;
-            }
-            
-            itemDiv.appendChild(deleteBtn);
-            capsuleContentDiv.appendChild(itemDiv);
-        });
-    } else {
-        capsuleContentDiv.classList.add('empty-state');
-        capsuleContentDiv.innerHTML = '';
-    }
-}
-
-
-function editNote(itemId, currentText){
-    const modal = document.getElementById('edit-note-modal');
-    const textarea = document.getElementById('edit-note-text-input');
-    const form = document.getElementById('edit-note-form-element');
-
-    textarea.value = currentText;
-    modal.style.display = 'flex';
-
-    form.onsubmit = (e) => {
-        e.preventDefault();
-        const updated = textarea.value.trim();
-        if (updated){
-            const capsule = getCapsuleForDate(new Date(currentSelectedCapsuleId));
-            if (capsule){
-                const newI = capsule.items.find(item => item.id === itemId);
-                if (newI){
-                    newI.text = updated;
-                    saveCapsules();
-                    renderSelectedCapsule();
-                }
-            }
-        }
-        modal.style.display = 'none';
-    };
-}
-
-document.getElementById('close-edit-modal-btn').addEventListener('click', () => {
-    document.getElementById('edit-note-modal').style.display = 'none';
-});
-
-
-function deleteItem(capsuleId, itemId){
-    const capsuleIndex = capsules.findIndex(capsule => capsule.id === capsuleId);
-
-    if (capsuleIndex > -1){
-        const iIndex = capsules[capsuleIndex].items.findIndex(item => item.id === itemId);
-        if (iIndex > -1){
-            capsules[capsuleIndex].items.splice(iIndex, 1);
-
-            if (capsules[capsuleIndex].items.length === 0){
-                capsules.splice(capsuleIndex, 1);
-            }
-            renderCalendar();
-            renderSelectedCapsule();
-            saveCapsules();
-        }
-    }
-}
-
-function showModal(){
-    document.getElementById('item-modal').style.display = 'flex';
-    document.getElementById('add-item-form').reset();
-    document.querySelectorAll('.item-form-group').forEach(
-        group => group.style.display = 'none'
-    );
-    document.getElementById('note-form').style.display = 'flex';
-
-    document.querySelectorAll(
-        '.item-type-selector button'
-    ).forEach(btn => btn.classList.remove('selected'));
-    document.querySelector('.item-type-selector button[data-type="note"]').classList.add('selected');
-}
-
-function hideModal(){
-    document.getElementById('item-modal').style.display = 'none';
-}
-
-document.querySelectorAll('.item-type-selector button').forEach(button => {
-    button.addEventListener('click', (e) => {
-        const selecttype = e.target.dataset.type;
-
-        document.querySelectorAll('.item-type-selector button').forEach(
-            btn => btn.classList.remove('selected')
-        );
-        e.target.classList.add('selected');
-
-        document.querySelectorAll('.item-form-group').forEach(grou => {
-            group.style.display = 'none';
-        });
-        document.getElementById(`${selecttype}-form`).style.display = 'flex';
-    });
-});
-
-document.getElementById('add-new-capsule-btn').addEventListener('click', showModal);
-
-document.getElementById('add-item-form').addEventListener('submit', async (e) => {
-    e.preventDefault();
-    const form = e.target;
-    const popcorn = document.querySelector('.item-type-selector button.selected').dataset.type;
-
-    let newItem = { id: generateID(), type: active};
-
-    if (popcorn === 'note'){
-        const noteText = document.getElementById('note-text-input').value.trim();
-        if (!noteText) return;
-        newItem.text = noteText;
-    } else if (popcorn === 'memory'){
-        newItem.url = document.getElementById('memory-image-input').value.trim();
-        newItem.description = document.getElementById('memory-description-input').value.trim();
-        if(!newItem.url) return;
-    } else if (popcorn === 'music'){
-        newItem.url = document.getElementById('music-link-input').value.trim();
-        newItem.title = document.getElementById('music-title-input').value.trim();
-        if (!newItem.url) return;
-    } else if (popcorn === 'file'){
-        const fileInput = document.getElementById('file-upload-input');
-        const fileLink = document.getElementById('file-link-input').value.trim();
-        const fileTitle = document.getElementById('file-title-input').value.trim();
-        const file = fileInput.files[0];
-
-        if(!file && !fileLink) return;
-
-        if (file){
-            const reader = new FileReader();
-            reader.onload = function(event){
-                newItem.data = event.target.result;
-                newItem.fileName = file.name;
-                newItem.mimeType = file.type;
-                newItem.description = fileTitle;
-
-                let existing = getCapsuleForDate(new Date(currentSelectedCapsuleId));
-                if (!existing)
-                    existing = { id: currentSelectedCapsuleId, items: []};
-                    capsules.push(existing);
-                }
-                existing.item.push(newItem);
-
-                saveCapsules();
-                renderCalendar();
-                renderSelectedCapsule();
-                hideModal();
-                form.reset();
-            };
-            reader.readAsDataURL(file);
-            return;
-        } else if (fileLink){
-            newItem.data = fileLink;
-            newItem.fileName = fileTitle || 'File Link';
-            newItem.mimeType = 'link';
-            newItem.description = fileTitle;
-        }
-
-    if (newItem.type !== 'file' || newItem.data){
-        let existing = getCapsuleForDate(new Date(currentSelectedCapsuleId));
-        if (!existing) {
-            existing = { id: currentSelectedCapsuleId, items: []};
-            capsules.push(existing);
-        }
-        existing.items.push(newItem);
-        saveCapsules();
-        renderCalendar();
-        renderSelectedCapsule();
-        hideModal();
-        form.reset();
-    }
-});
 
 /* update calendar when buttons press */
 document.getElementById('prev-month-btn').addEventListener('click', () => {
@@ -395,9 +122,6 @@ document.getElementById('prev-month-btn').addEventListener('click', () => {
         currentYear--;
     }
     renderCalendar();
-    clearSelectedDay();
-    currentSelectedCapsuleId = null;
-    renderSelectedCapsule();
 });
 
 document.getElementById('next-month-btn').addEventListener('click', () => {
@@ -407,64 +131,333 @@ document.getElementById('next-month-btn').addEventListener('click', () => {
         currentYear++;
     }
     renderCalendar();
-    clearSelectedDay();
-    currentSelectedCapsuleId = null;
-    renderSelectedCapsule();
 });
 
-document.getElementById('search-bar').addEventListener('input', (e) => {
-    const term = e.target.value.toLowerCase();
-    if (searchTerm === ''){
+function selectCapsule(capsuleId){
+    currentSelectedCapsuleId = capsuleId;
+    renderCalendar();
+    renderSelectedCapsule();
+}
+
+function renderSelectedCapsule(){
+    const capsuleContentDiv = document.getElementById('capsule-content');
+    capsuleContentDiv.innerHTML = '';
+    
+    const selectedCapsule = capsules.find(c => c.id === currentSelectedCapsuleId);
+    let currentSelectedDate;
+    if(currentSelectedCapsuleId){
+        const parts = currentSelectedCapsuleId.split('-').map(Number);
+        currentSelectedDate = new Date(parts[0], parts[1]-1, parts[2]);
+    } else {
+        capsuleContentDiv.innerHTML = `<p class = "placeholder"> select a calendar date to view its capsule :D</p>`;
+        return;
+    }
+
+    if (!selectedCapsule){
+        capsuleContentDiv.innerHTML = `
+            <div class="create-capsule-button-wrapper">
+                <p>no capsule found for ${parseDate(currentSelectedDate)}.</p>
+                <button id="create-capsule-for-day-btn" class="create-capsule-button">
+                    + create a capsule for this day
+               </button>
+            </div>
+        `;
+
+        document.getElementById('create-capsule-for-day-btn').addEventListener('click', () => {
+            createCapsule(currentSelectedCapsuleId);
+        });
+        return;
+    }
+
+    const headerHtml = `
+        <div class="capsule-header">
+            <h2>capsule for ${parseDate(currentSelectedDate)}</h2>
+            <p>capsule id: ${selectedCapsule.id}</p>
+        </div>
+    `;  
+
+    capsuleContentDiv.insertAdjacentHTML('beforeend', headerHtml);
+
+    capsuleContentDiv.insertAdjacentHTML('beforeend', renderSection('notes', selectedCapsule.notes));
+    capsuleContentDiv.insertAdjacentHTML('beforeend', renderSection('memories', selectedCapsule.memories));
+    capsuleContentDiv.insertAdjacentHTML('beforeend', renderSection('filesLinks', selectedCapsule.filesLinks));
+    capsuleContentDiv.insertAdjacentHTML('beforeend', renderSection('music', selectedCapsule.music));
+
+    capsuleContentDiv.insertAdjacentHTML('beforeend', `
+        <div class = "add-item-to-capsule-button-wrapper">
+            <button id = "add-new-item-btn" class = "add-new-item-button">
+                + add new item 
+            </button>
+        </div>        
+    `);
+    document.getElementById('add-new-item-btn').addEventListener('click', showModal);
+}
+
+function initializeModalItemForm(){
+    const form = document.getElementById('add-item-form');
+    const itemTypeSelect = document.getElementById('item-type-select');
+    const noteForm = document.getElementById('note-form');
+    const fileForm = document.getElementById('file-form');
+    const memoryForm = document.getElementById('memory-form');
+    const musicForm = document.getElementById('music-form');
+
+    itemTypeSelect.addEventListener('change', (e) => {
+        noteForm.style.display = 'none';
+        fileForm.style.display = 'none';
+        memoryForm.style.display = 'none';
+        musicForm.style.display = 'none';
+
+        switch (e.target.value) {
+            case 'note':
+                noteForm.style.display = 'block';
+                break;
+            case 'file':
+                fileForm.style.display = 'block';
+                break;
+            case 'memory':
+                memoryForm.style.display = 'block';
+                break;
+            case 'music':
+                musicForm.style.display = 'block';
+                break;
+        }
+    });
+
+    form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const type = itemTypeSelect.value;
+        let data = {};
+
+        switch(type){
+            case 'note':
+                const noteContent = document.getElementById('note-text-input').value.trim();
+                if (noteContent) {
+                    data.content = noteContent;
+                    addItemToCapsule(type, data);
+                }
+                break;
+            case 'file':
+                const fileLink = document.getElementById('file-link-input').value.trim();
+                const fileTitle = document.getElementById('file-title-input').value.trim() || 'untitled file :(';
+
+                if (fileLink) {
+                    data.url = fileLink;
+                    data.title = fileTitle;
+                    addItemToCapsule(type, data);
+                }
+                break;
+            case 'memory':
+                const memoryUrl = document.getElementById('memory-image-input').value.trim();
+                const memoryDesc = document.getElementById('memory-description-input').value.trim() || 'no description yet :(';
+                
+                if (memoryUrl) {
+                    data.url = memoryUrl;
+                    data.description = memoryDesc;
+                    addItemToCapsule(type, data);
+                }
+                break;
+            case 'music':
+                const musicUrl = document.getElementById('music-link-input').value.trim();
+                const musicTitle = document.getElementById('music-title-input').value.trim() || 'untitled track :(';
+                if (musicUrl) {
+                    data.url = musicUrl;
+                    data.title = musicTitle;
+                    addItemToCapsule(type, data);
+                }
+                break;
+        }
+        hideModal(); //after u submit
+    });
+}
+
+function renderSection(sectionName, items){
+    const sectionTitleMap = {
+        notes: 'notes',
+        memories: 'memories',
+        filesLinks: 'files & links',
+        music: 'music'
+    }
+
+    const hasItems = items && items.length > 0;
+
+    const itemsHtml = hasItems ? items.map(item => {
+
+        const deleteBtnHtml = `<button class="action-button delete-btn" onclick="deleteItem('${currentSelectedCapsuleId}', 
+                                '${sectionName}', '${item.id}')"><i class="fas fa-trash"></i></button>`;
+
+        const editBtnHtml = `<button class="action-button edit-btn" onclick="editItem('${currentSelectedCapsuleId}', 
+                                '${sectionName}', '${item.id}')"><i class="fas fa-edit"></i></button>`;
+        
+        let itemContentHtml = '';
+        switch(sectionName){
+            case 'notes':
+                itemContentHtml = `<div class = "note-card item-card"><h4>note</h4><p>${item.content}</p><div class = "note-action">${editBtnHtml}${deleteBtnHtml}</div></div>`;
+                break;
+            case 'filesLinks':
+                itemContentHtml = `<div class="item-card file-link-item"><span><a href = "${item.url}" target="_blank">${item.title}</a></span>${deleteBtnHtml}</div>`;
+                break;
+            case 'memories':
+                const placeholderUrl = "https://placehold.co/150x150/bdb7b0/ffffff?text=Image";
+                itemContentHtml = `<div class="memory-item item-card"><img src="${item.url}" alt="${item.description}" onerror="this.src='${placeholderUrl}'"> <p>${item.description}</p> ${deleteBtnHtml}</div>`;
+                break;
+            case 'music':
+                itemContentHtml = `<div class='item-card music-item'><span>${item.title}</span><audio controls src="${item.url}"></audio>${deleteBtnHtml}</div>`;
+                break;
+            default:
+                itemContentHtml = '';
+                break;
+        }
+        return itemContentHtml;
+
+    }).join('') : `<p class = "empty-message"> no ${sectionTitleMap[sectionName]} found.</p>`;
+
+    return `
+        <div class = "capsule-section">
+            <h3>${sectionTitleMap[sectionName]}</h3>
+            <div class = "section-items-list">
+                ${itemsHtml}
+            </div>
+        </div>
+    `;
+}
+
+function createCapsule(currentDayId){
+    const dayReadable = parseDate(new Date(currentDayId));
+
+    if (capsules.some(c => c.id === currentDayId)){
+        console.warn(`a capsule for ${dayReadable} already exists`);
+        selectCapsule(currentDayId);
+        return;
+    }
+
+    const newCapsule = {
+        id: currentDayId,
+        date: dayReadable,
+        notes: [],
+        filesLinks: [],
+        memories: [],
+        music: []
+    };
+
+    capsules.push(newCapsule);
+    saveCapsules();
+    selectCapsule(newCapsule.id);
+}
+
+function showModal(){
+    const modal = document.getElementById('item-modal');
+    modal.style.display = 'flex';
+
+    document.getElementById('add-item-form').reset();
+    document.getElementById('item-type-select').value = 'note';
+    document.getElementById('note-form').style.display = 'block';
+    document.getElementById('file-form').style.display = 'none';
+    document.getElementById('memory-form').style.display = 'none';
+    document.getElementById('music-form').style.display = 'none';
+}
+
+function hideModal(){
+    const modal = document.getElementById('item-modal');
+    modal.style.display = 'none';
+    document.getElementById('add-item-form').reset();
+}
+
+function addItemToCapsule(type, data){
+    const capsule = capsules.find(c => c.id === currentSelectedCapsuleId);
+    if (!capsule) return;
+
+    data.id = generateID();
+
+    switch(type){
+        case 'note':
+            capsule.notes.push(data);
+            break;
+        case 'file':
+            capsule.filesLinks.push(data);
+            break;
+        case 'memory':
+            capsule.memories.push(data);
+            break;
+        case 'music':
+            capsule.music.push(data);
+            break;
+    }
+    saveCapsules();
+    renderSelectedCapsule();
+}
+
+function deleteItem(capsuleId, section, itemId){
+    const capsule = capsules.find(c => c.id === capsuleId);
+    if (!capsule) return;
+
+    const index = capsule[section].findIndex(item => item.id === itemId);
+    if (index > -1){
+        capsule[section].splice(index,1);
+        saveCapsules();
+        renderSelectedCapsule();
+    }
+}
+
+function editItem(capsuleId, section, itemId){
+    if (section !== 'notes') return;
+
+    const capsule = capsules.find(c => c.id === capsuleId);
+    if (!capsule ) return;
+
+    const itemToEdit = capsule[section].find(item => item.id === itemId);
+    if (!itemToEdit) return;
+
+    const newContent = prompt("edit your note", itemToEdit.content);
+    if (newContent !== null){
+        itemToEdit.content = newContent;
+        saveCapsules();
+        renderSelectedCapsule();
+    }
+}
+
+/* search func */
+const searchInput = document.getElementById('search-input');
+searchInput.addEventListener('input', (e) => {
+    const searchTerm = e.target.value.toLowerCase();
+
+    if (searchTerm.length == 0){
         renderCalendar();
         renderSelectedCapsule();
         return;
     }
-
-    const filteredCaps = capsules.filter(capsule => 
-        capsule.id.includes(term) ||
-        capsule.items.some(item =>
-            (item.type === 'note' && item.text.toLowerCase().includes(term)) || 
-            (item.type === 'memory' && item.description.toLowerCase().includes(term)) ||
-            (item.type === 'file' && (item.description.toLowerCase().includes(term) || (item.fileName && item.fileName.toLowerCase().includes(term)) )) ||
-            (item.type === 'music' && item.title.toLowerCase().includes(term) ) ||
-            (item.type === 'music' && item.url.toLowerCase().include(term))
-        )
+    const filteredCapsules = capsules.filter(capsule =>
+        capsule.notes.some(note => note.content.toLowerCase().includes(searchTerm)) ||
+        capsule.filesLinks.some(file => file.title.toLowerCase().includes(searchTerm)) || file.url.toLowerCase().includes(searchTerm) ||
+        capsule.memories.some(memory => memory.description.toLowerCase().includes(searchTerm)) || memory.url.toLowerCase().includes(searchTerm) ||
+        capsule.music.some(music => music.title.toLowerCase().includes(searchTerm)) || music.url.toLowerCase().includes(searchTerm)
     );
 
-    const foundIds = filteredCaps.map(c => c.id);
-    const firstFoundId = foundIds.length > 0 ? foundIds[0] : null;
-
-    const dayCells = document.querySelectorAll('.calendar-day-cell');
-    dayCells.forEach(cell => {
-        const cellDate = new Date(currentYear, currentMonth, parseInt(cell.textContent));
-        const dateId = formatDateId(cellDate);
-        cell.classList.remove('has-capsule', 'selected-day');
-
-        if (foundIds.includes(dateId)) cell.classList.add('has-capsule');
-    })
-
-    if (firstFoundId){
+    if (filteredCapsules.length > 0){
+        const firstM = filteredCapsules[0];
+        currentSelectedCapsuleId = firstM.id;
         renderCalendar();
         renderSelectedCapsule();
     } else {
         const capdiv = document.getElementById('capsule-content');
-        capdiv.innerHTML = '<p class = "placeholder"> no capsules found :( </p>';
-
+        capdiv.innerHTML = '<p class="placeholder"> no capsules found </p>';
+        
         const dayCells = document.querySelectorAll('.calendar-day-cell');
         dayCells.forEach(cell => cell.classList.remove('selected-day'));
         currentSelectedCapsuleId = null;
     }
-})
+});
 
 document.getElementById('close-modal-btn').addEventListener('click', hideModal);
 document.getElementById('item-modal').addEventListener('click', (e) => {
     if (e.target === e.currentTarget) hideModal();
 });
 
-// on load //
+
+// on loaddd
 document.addEventListener('DOMContentLoaded', () => {
     loadCapsules();
     renderCalendar();
+    initializeModalItemForm();
 
     if (capsules.length > 0){
         currentSelectedCapsuleId = capsules[0].id;
@@ -472,12 +465,6 @@ document.addEventListener('DOMContentLoaded', () => {
         renderSelectedCapsule();
     } else {
         const capsuleContentDiv = document.getElementById('capsule-content');
-        const capsuleHeaderDate = document.getElementById('capsule-header-date');
-        const addBtn = document.getElementById('add-new-capsule-btn');
-
-        capsuleContentDiv.classList.add('empty-state');
-        capsuleContentDiv.innerHTML = '<p class="placeholder"> select a date to view or create a capsule</p>';
-        capsuleHeaderDate.textContent = 'select a date';
-        addBtn.style.display = 'none';
+        capsuleContentDiv.innerHTML = `<p class = "placeholder"> select a calendar date to view its capsule </p>`;
     }
 });
