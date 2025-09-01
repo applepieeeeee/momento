@@ -237,6 +237,7 @@ function initializeModalItemForm(){
                 }
                 break;
             case 'file':
+                const fileInput = document.getElementById('file-upload-input');
                 const fileLink = document.getElementById('file-link-input').value.trim();
                 const fileTitle = document.getElementById('file-title-input').value.trim() || 'untitled file :(';
 
@@ -244,8 +245,18 @@ function initializeModalItemForm(){
                     data.url = fileLink;
                     data.title = fileTitle;
                     addItemToCapsule(type, data);
+                } else if (fileInput.files.length > 0){
+                    const file = fileInput.files[0];
+                    const reader = new FileReader();
+                    reader.onload = function(event){
+                        data.url = event.target.result;
+                        data.title = fileTitle;
+                        addItemToCapsule(type, data);
+                    };
+                    reader.readAsDataURL(file);
                 }
                 break;
+
             case 'memory':
                 const memoryUrl = document.getElementById('memory-image-input').value.trim();
                 const memoryDesc = document.getElementById('memory-description-input').value.trim() || 'no description yet :(';
