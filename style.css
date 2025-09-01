@@ -266,7 +266,7 @@ body{
     justify-content: center;
 
     height: 100%;
-    padding: 16px;
+    padding: 13px;
     text-align: center;
 
     font-family: 'Gaegu', cursive;
@@ -471,6 +471,7 @@ body{
     flex-direction: column;
     gap: 8px;
     margin-top: 16px;
+    justify-content: center;
 }
 
 .add-item-form.row-gap{
@@ -485,7 +486,7 @@ body{
     border-radius: 8px;
     border: 1px solid var(--light-cream);
 
-    font-size: 14px;
+    font-size: 12px;
     font-family: var(--font1);
     background-color: var(--light-cream);
     color: var(--navy);
@@ -493,15 +494,17 @@ body{
     resize: vertical;
 }
 
-.add-item-to-capsule-button-wrapper{
-    display: flex;
-    justify-content: center;
-    padding-top: 20px;
-
+.add-item-to-capsule-button{
     border-radius: 10px;
+    background-color: var(--navy);
+    color: var(--light-cream);
+    font-family: var(--font1);
 }
 
 .add-new-item-button{
+    align-items: center;
+    justify-content: center;
+
     background-color: var(--navy);
     color: var(--light-cream);
     padding: 12px 24px;
@@ -553,11 +556,11 @@ body{
 
 .modal-content input[type = "text"],
 .modal-content select{
-    font-size: 23px;
+    font-size: 22px;
 }
 
 .modal-content textarea{
-    font-size: 20px;
+    font-size: 19px;
 }
 
 .modal-content .add-item-button{
@@ -584,4 +587,39 @@ body{
 
 .footer:hover{
     transform: translateY(-4px);
+}
+
+
+.file-input{
+    padding: 8px;
+    border-radius: 8px;
+    border: 1px solid var(--light-cream);
+
+    background-color: var(--light-cream);
+    color: var(--navy);
+    cursor: url("assets/cursor.ico");
+}
+
+.file-input::-webkit-file-upload-button{
+    background-color: var(--navy);
+    color: var(--light-cream);
+
+    border: none;
+    padding: 8px 12px;
+    border-radius: 6px;
+
+    cursor: url("assets/cursor.ico");
+    font-family: var(--font1);
+    font-size: 16px;
+}
+
+.file-input::-webkit-file-upload-button:hover{
+    background-color: #030125;
+}
+
+.or-separator{
+    text-align: center;
+    color: var(--muted-text);
+    text-decoration: wavy;
+    margin: 8px 0;
 }

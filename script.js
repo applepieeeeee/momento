@@ -223,6 +223,22 @@ function initializeModalItemForm(){
         }
     });
 
+    fileLinkInput.addEventListener('input', () => {
+        if (fileLinkInput.value){
+            fileUploadInput.disabled = true;
+        } else {
+            fileUploadInput.disabled = false;
+        }
+    });
+
+    fileUploadInput.addEventListener('change', () => {
+        if (fileUploadInput.files.length > 0){
+            fileLinkInput.disabled = true;
+        } else {
+            fileLinkInput.disabled = false;
+        }
+    })
+
     form.addEventListener('submit', (e) => {
         e.preventDefault();
         const type = itemTypeSelect.value;
@@ -238,6 +254,7 @@ function initializeModalItemForm(){
                 break;
             case 'file':
                 const fileInput = document.getElementById('file-upload-input');
+
                 const fileLink = document.getElementById('file-link-input').value.trim();
                 const fileTitle = document.getElementById('file-title-input').value.trim() || 'untitled file :(';
 
@@ -248,11 +265,13 @@ function initializeModalItemForm(){
                 } else if (fileInput.files.length > 0){
                     const file = fileInput.files[0];
                     const reader = new FileReader();
+
                     reader.onload = function(event){
                         data.url = event.target.result;
                         data.title = fileTitle;
                         addItemToCapsule(type, data);
                     };
+
                     reader.readAsDataURL(file);
                 }
                 break;
@@ -304,16 +323,25 @@ function renderSection(sectionName, items){
             case 'notes':
                 itemContentHtml = `<div class = "note-card item-card"><h4>note</h4><p>${item.content}</p><div class = "note-action">${editBtnHtml}${deleteBtnHtml}</div></div>`;
                 break;
+
             case 'filesLinks':
-                itemContentHtml = `<div class="item-card file-link-item"><span><a href = "${item.url}" target="_blank">${item.title}</a></span>${deleteBtnHtml}</div>`;
+                const isDataUrl = item.url.startsWith('data:');
+                if (isDataUrl){
+                    itemContentHtml = `<div class="item-card file-link-item"><span>${item.title}</span><a href="${item.url}" download="${item.title}"><i class="fas fa-download"></i> Download</a>${deleteBtnHtml}</div>`;
+                } else {
+                    itemContentHtml = `<div class="item-card file-link-item"><span><a href="${item.url}" target="_blank">${item.title}</a></span>${deleteBtnHtml}</div>`;
+                }
                 break;
+
             case 'memories':
                 const placeholderUrl = "https://placehold.co/150x150/bdb7b0/ffffff?text=Image";
                 itemContentHtml = `<div class="memory-item item-card"><img src="${item.url}" alt="${item.description}" onerror="this.src='${placeholderUrl}'"> <p>${item.description}</p> ${deleteBtnHtml}</div>`;
                 break;
+
             case 'music':
                 itemContentHtml = `<div class='item-card music-item'><span>${item.title}</span><audio controls src="${item.url}"></audio>${deleteBtnHtml}</div>`;
                 break;
+
             default:
                 itemContentHtml = '';
                 break;
@@ -362,7 +390,11 @@ function showModal(){
     document.getElementById('add-item-form').reset();
     document.getElementById('item-type-select').value = 'note';
     document.getElementById('note-form').style.display = 'block';
+
     document.getElementById('file-form').style.display = 'none';
+    document.getElementById('file-link-input').disabled = false;
+    document.getElementById('file-upload-input').disabled = false;
+
     document.getElementById('memory-form').style.display = 'none';
     document.getElementById('music-form').style.display = 'none';
 }
