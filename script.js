@@ -194,6 +194,9 @@ function renderSelectedCapsule(){
 }
 
 function initializeModalItemForm(){
+    const fileLinkInput = document.getElementById('file-link-input');
+    const fileUploadInput = document.getElementById('file-upload-input');
+
     const form = document.getElementById('add-item-form');
     const itemTypeSelect = document.getElementById('item-type-select');
     const noteForm = document.getElementById('note-form');
